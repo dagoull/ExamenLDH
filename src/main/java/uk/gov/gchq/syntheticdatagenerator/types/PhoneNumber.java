@@ -25,8 +25,8 @@ public class PhoneNumber {
 
     private String type; // is this a home number, work number, mobile number ...
     private String number;
-    private static final String[] DEFAULT_TYPES = new String[]{"Mobile"};
-    private static final String[] POSSIBLE_TYPES = new String[]{"Home", "Work", "Work Mobile"};
+    private static final String[] DEFAULT_TYPES = new String[]{"Movil"};
+    private static final String[] POSSIBLE_TYPES = new String[]{"Casa", "Trabajo", "Movil de trabajo"};
 
     public static PhoneNumber[] generateMany(final Random random) {
         int numberOfExtraContacts = random.nextInt(MAX_EXTRA_CONTACTS);

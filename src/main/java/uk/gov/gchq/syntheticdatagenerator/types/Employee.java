@@ -82,7 +82,7 @@ public class Employee implements Serializable {
     }
 
     public static String generateUID(final Random random) {
-        return String.valueOf(random.nextInt(Integer.MAX_VALUE));
+        return "alu" + random.nextInt(Integer.MAX_VALUE);
     }
 
     private static String generateTaxCode() {
