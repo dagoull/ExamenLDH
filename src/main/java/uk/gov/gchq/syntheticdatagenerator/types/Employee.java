@@ -46,7 +46,7 @@ public class Employee implements Serializable {
     private Manager[] manager;
     private String hireDate;
     private Grade grade;
-    private Department department;
+    private Campus campus;
     private int salaryAmount;
     private int salaryBonus;
     private WorkLocation workLocation;
@@ -69,7 +69,7 @@ public class Employee implements Serializable {
         employee.setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
         employee.setHireDate(DateHelper.generateHireDate(employee.dateOfBirth, random));
         employee.setGrade(Grade.generate(random));
-        employee.setDepartment(Department.generate(random));
+        employee.setDepartment(Campus.generate(random));
         employee.setSalaryAmount(MIN_SALARY + random.nextInt(EXTRA_SALARY_RANGE));
         employee.setSalaryBonus(random.nextInt(SALARY_BONUS_RANGE));
         employee.setWorkLocation(WorkLocation.generate(faker, random));
@@ -182,12 +182,12 @@ public class Employee implements Serializable {
         this.grade = grade;
     }
 
-    public Department getDepartment() {
-        return department;
+    public Campus getCampus() {
+        return campus;
     }
 
-    public void setDepartment(final Department department) {
-        this.department = department;
+    public void setDepartment(final Campus campus) {
+        this.campus = campus;
     }
 
     public int getSalaryAmount() {
@@ -237,7 +237,7 @@ public class Employee implements Serializable {
                 .add("manager=" + Arrays.toString(manager))
                 .add("hireDate='" + hireDate + "'")
                 .add("grade=" + grade)
-                .add("department=" + department)
+                .add("campus=" + campus)
                 .add("salaryAmount=" + salaryAmount)
                 .add("salaryBonus=" + salaryBonus)
                 .add("workLocation=" + workLocation)

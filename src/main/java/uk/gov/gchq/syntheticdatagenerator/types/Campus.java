@@ -18,18 +18,22 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
-public enum Department {
-    CLINICAL_TRIALS,
-    IT,
-    CHIEF_DATA_OFFICE,
-    ACCOUNTS,
-    FINANCE,
-    AMSTERDAM_LAB,
-    LONDON_LAB,
-    NEW_YORK_LAB,
-    FOUNDERS;
+public enum Campus {
+    ESCUELA_DE_DOCTORADO_Y_ESTUDIOS_DE_POSGRADO,
+    ESCUELA_POLITECNICA_SUPERIOR_DE_INGENIERIA,
+    ESCUELA_SUPERIOR_DE_INGENIERIA_Y_TECNOLOGIA,
+    FACULTAD_DE_BELLAS_ARTES,
+    FACULTAD_DE_CIENCIAS,
+    FACULTAD_DE_CIENCIAS_DE_LA_SALUD,
+    FACULTAD_DE_CIENCIAS_SOCIALES_Y_DE_LA_COMUNICACION,
+    FACULTAD_DE_DERECHO,
+    FACULTAD_DE_ECONOMIA,
+    FACULTAD_DE_EDUCACUION,
+    FACULTAD_DE_FARMACIA,
+    FACULTAD_DE_HUMANIDADES,
+    FACULTAD_DE_PSICOLOGIA;
 
-    public static Department generate(final Random random) {
-        return Department.values()[random.nextInt(Department.values().length)];
+    public static Campus generate(final Random random) {
+        return Campus.values()[random.nextInt(Campus.values().length)];
     }
 }
