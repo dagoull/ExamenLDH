@@ -72,7 +72,7 @@ public class Employee implements Serializable {
         employee.setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
         employee.setEntradaULLDate(DateHelper.generateHireDate(employee.dateOfBirth, random));
         employee.setGrade(Grade.generate(random));
-        employee.setDepartment(Campus.generate(random));
+        employee.setCampus(Campus.generate(random));
         employee.setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
         employee.setBecaBonus(random.nextInt(BECA_BONUS));
         employee.setBirthLocation(BirthLocation.generate(faker, random));
@@ -189,7 +189,7 @@ public class Employee implements Serializable {
         return campus;
     }
 
-    public void setDepartment(final Campus campus) {
+    public void setCampus(final Campus campus) {
         this.campus = campus;
     }
 
