@@ -19,11 +19,11 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 import java.util.Random;
 
 public enum Relation {
-    GRANDPARENT,
-    PARENT,
-    SIBLING,
-    CHILDREN,
-    COUSIN;
+    ABUELO,
+    PADRE,
+    HERMANO,
+    HIJO,
+    PRIMO;
 
     public static Relation generate(final Random random) {
         return Relation.values()[random.nextInt(Relation.values().length)];
