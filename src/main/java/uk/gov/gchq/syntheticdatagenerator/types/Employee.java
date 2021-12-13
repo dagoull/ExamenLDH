@@ -30,9 +30,9 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
     private static final int EXTRA_MANAGERS_TREE_HEIGHT_RANGE = 3;
-    private static final int MIN_SALARY = 20_000;
-    private static final int EXTRA_SALARY_RANGE = 100_000;
-    private static final int SALARY_BONUS_RANGE = 10_000;
+    private static final int MIN_MATRICULA = 900;
+    private static final int EXTRA_MATRICULA_RANGE = 1_000;
+    private static final int BECA_BONUS = 2_500;
     private static final String TAX_CODE = "11500L";
 
     private String uid;
@@ -45,11 +45,11 @@ public class Employee implements Serializable {
     private String taxCode;
     private Nationality nationality;
     private Manager[] manager;
-    private String hireDate;
+    private String entradaULLDate;
     private Grade grade;
     private Campus campus;
-    private int salaryAmount;
-    private int salaryBonus;
+    private int matriculaAmount;
+    private int becaBonus;
     private BirthLocation birthLocation;
     private Sex sex;
 
@@ -70,11 +70,11 @@ public class Employee implements Serializable {
         employee.setTaxCode(generateTaxCode());
         employee.setNationality(Nationality.generate(random));
         employee.setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
-        employee.setHireDate(DateHelper.generateHireDate(employee.dateOfBirth, random));
+        employee.setEntradaULLDate(DateHelper.generateHireDate(employee.dateOfBirth, random));
         employee.setGrade(Grade.generate(random));
         employee.setDepartment(Campus.generate(random));
-        employee.setSalaryAmount(MIN_SALARY + random.nextInt(EXTRA_SALARY_RANGE));
-        employee.setSalaryBonus(random.nextInt(SALARY_BONUS_RANGE));
+        employee.setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
+        employee.setBecaBonus(random.nextInt(BECA_BONUS));
         employee.setBirthLocation(BirthLocation.generate(faker, random));
         employee.setSex(Sex.generate(random));
 
@@ -169,12 +169,12 @@ public class Employee implements Serializable {
         this.manager = manager;
     }
 
-    public String getHireDate() {
-        return hireDate;
+    public String getEntradaULLDate() {
+        return entradaULLDate;
     }
 
-    public void setHireDate(final String hireDate) {
-        this.hireDate = hireDate;
+    public void setEntradaULLDate(final String entradaULLDate) {
+        this.entradaULLDate = entradaULLDate;
     }
 
     public Grade getGrade() {
@@ -193,20 +193,20 @@ public class Employee implements Serializable {
         this.campus = campus;
     }
 
-    public int getSalaryAmount() {
-        return salaryAmount;
+    public int getMatriculaAmount() {
+        return matriculaAmount;
     }
 
-    public void setSalaryAmount(final int salaryAmount) {
-        this.salaryAmount = salaryAmount;
+    public void setMatriculaAmount(final int matriculaAmount) {
+        this.matriculaAmount = matriculaAmount;
     }
 
-    public int getSalaryBonus() {
-        return salaryBonus;
+    public int getBecaBonus() {
+        return becaBonus;
     }
 
-    public void setSalaryBonus(final int salaryBonus) {
-        this.salaryBonus = salaryBonus;
+    public void setBecaBonus(final int becaBonus) {
+        this.becaBonus = becaBonus;
     }
 
     public BirthLocation getBirthLocation() {
@@ -238,11 +238,11 @@ public class Employee implements Serializable {
                 .add("taxCode='" + taxCode + "'")
                 .add("nationality=" + nationality)
                 .add("manager=" + Arrays.toString(manager))
-                .add("hireDate='" + hireDate + "'")
+                .add("entradaULLDate='" + entradaULLDate + "'")
                 .add("grade=" + grade)
                 .add("campus=" + campus)
-                .add("salaryAmount=" + salaryAmount)
-                .add("salaryBonus=" + salaryBonus)
+                .add("matriculaAmount=" + matriculaAmount)
+                .add("becaBonus=" + becaBonus)
                 .add("birthLocation=" + birthLocation)
                 .add("sex=" + sex)
                 .toString();
