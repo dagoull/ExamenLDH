@@ -18,14 +18,17 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
-public enum WorkLocationName {
-    AMSTERDAM,
-    LONDON,
-    NEW_YORK,
-    HAMPTON_HOSPITAL;
+public enum BirthLocationName {
+    SANTA_CRUZ_DE_TENERIFE,
+    LAS_PALMAS_DE_GRAN_CANARIA,
+    SAN_SEBASTIAN,
+    SANTA_CRUZ_DE_LA_PALMA,
+    VALVERDE,
+    ARRECIFE,
+    PUERTO_DEL_ROSARIO;
 
-    public static WorkLocationName generate(final Random random) {
-        return WorkLocationName.values()[random.nextInt(WorkLocationName.values().length)];
+    public static BirthLocationName generate(final Random random) {
+        return BirthLocationName.values()[random.nextInt(BirthLocationName.values().length)];
     }
 }
 

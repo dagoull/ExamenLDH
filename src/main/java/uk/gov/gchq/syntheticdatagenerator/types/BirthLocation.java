@@ -21,23 +21,23 @@ import com.github.javafaker.Faker;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class WorkLocation {
-    private WorkLocationName workLocationName;
+public class BirthLocation {
+    private BirthLocationName birthLocationName;
     private Address address;
 
-    public static WorkLocation generate(final Faker faker, final Random random) {
-        WorkLocation workLocation = new WorkLocation();
-        workLocation.setAddress(Address.generate(faker, random));
-        workLocation.setWorkLocationName(WorkLocationName.generate(random));
-        return workLocation;
+    public static BirthLocation generate(final Faker faker, final Random random) {
+        BirthLocation birthLocation = new BirthLocation();
+        birthLocation.setAddress(Address.generate(faker, random));
+        birthLocation.setBirthLocationName(BirthLocationName.generate(random));
+        return birthLocation;
     }
 
-    public WorkLocationName getWorkLocationName() {
-        return workLocationName;
+    public BirthLocationName getWorkLocationName() {
+        return birthLocationName;
     }
 
-    public void setWorkLocationName(final WorkLocationName workLocationName) {
-        this.workLocationName = workLocationName;
+    public void setBirthLocationName(final BirthLocationName workLocationName) {
+        this.birthLocationName = workLocationName;
     }
 
     public Address getAddress() {
@@ -50,8 +50,8 @@ public class WorkLocation {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", WorkLocation.class.getSimpleName() + "[", "]")
-                .add("workLocationName=" + workLocationName)
+        return new StringJoiner(", ", BirthLocation.class.getSimpleName() + "[", "]")
+                .add("birthLocationName=" + birthLocationName)
                 .add("address=" + address)
                 .toString();
     }

@@ -49,7 +49,7 @@ public class Employee implements Serializable {
     private Campus campus;
     private int salaryAmount;
     private int salaryBonus;
-    private WorkLocation workLocation;
+    private BirthLocation birthLocation;
     private Sex sex;
 
 
@@ -72,7 +72,7 @@ public class Employee implements Serializable {
         employee.setDepartment(Campus.generate(random));
         employee.setSalaryAmount(MIN_SALARY + random.nextInt(EXTRA_SALARY_RANGE));
         employee.setSalaryBonus(random.nextInt(SALARY_BONUS_RANGE));
-        employee.setWorkLocation(WorkLocation.generate(faker, random));
+        employee.setBirthLocation(BirthLocation.generate(faker, random));
         employee.setSex(Sex.generate(random));
 
         return employee;
@@ -206,12 +206,12 @@ public class Employee implements Serializable {
         this.salaryBonus = salaryBonus;
     }
 
-    public WorkLocation getWorkLocation() {
-        return workLocation;
+    public BirthLocation getBirthLocation() {
+        return birthLocation;
     }
 
-    public void setWorkLocation(final WorkLocation workLocation) {
-        this.workLocation = workLocation;
+    public void setBirthLocation(final BirthLocation workLocation) {
+        this.birthLocation = workLocation;
     }
 
     public Sex getSex() {
@@ -240,7 +240,7 @@ public class Employee implements Serializable {
                 .add("campus=" + campus)
                 .add("salaryAmount=" + salaryAmount)
                 .add("salaryBonus=" + salaryBonus)
-                .add("workLocation=" + workLocation)
+                .add("birthLocation=" + birthLocation)
                 .add("sex=" + sex)
                 .toString();
     }
