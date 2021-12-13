@@ -22,6 +22,7 @@ import uk.gov.gchq.syntheticdatagenerator.utils.DateHelper;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Random;
 import java.util.StringJoiner;
 
@@ -55,7 +56,9 @@ public class Employee implements Serializable {
 
     public static Employee generate(final Random random) {
         Employee employee = new Employee();
-        Faker faker = ThreadLocalFaker.getFaker(random);
+        //Faker faker = ThreadLocalFaker.getFaker(random);
+        //Genera datos que solo son de españoles, funciona medio raro
+        Faker faker = new Faker(new Locale("es"));
         employee.setUid(generateUID(random));
         Name employeeName = faker.name();
         employee.setName(employeeName.firstName() + " " + employeeName.lastName()); // we are storing name as a string not a Name
