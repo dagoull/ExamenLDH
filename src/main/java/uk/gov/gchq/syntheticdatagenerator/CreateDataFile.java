@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.gchq.syntheticdatagenerator.serialise.AvroSerialiser;
 import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
-import uk.gov.gchq.syntheticdatagenerator.types.Manager;
+import uk.gov.gchq.syntheticdatagenerator.types.Profesor;
 import uk.gov.gchq.syntheticdatagenerator.types.UserId;
 
 import java.io.File;
@@ -59,9 +59,9 @@ public final class CreateDataFile implements Callable<Boolean> {
 
             // Need at least one Alumno
             Alumno firstAlumno = Alumno.generate(random);
-            Manager[] managers = firstAlumno.getManager();
-            managers[0].setUid("Bob");
-            firstAlumno.setManager(managers);
+            Profesor[] Profesors = firstAlumno.getProfesor();
+            Profesors[0].setUid("Bob");
+            firstAlumno.setProfesor(Profesors);
 
             // Create more Alumnos if needed
             Stream<Alumno> AlumnoStream = Stream.of(firstAlumno);

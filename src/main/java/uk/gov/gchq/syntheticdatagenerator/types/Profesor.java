@@ -37,13 +37,13 @@ public class Profesor {
 
 
     public static Profesor generateRecursive(final Random random, final int chain, final String ProfesorType) {
-        Profesor Profesor = Profesor.generate(random, ProfesorType);
+        Profesor profesor = Profesor.generate(random, ProfesorType);
         if (chain <= 1) {
-            Profesor.setProfesor(null);
+            profesor.setProfesor(null);
         } else {
-            Profesor.setProfesor(Profesor.generateMany(random, chain - 1));
+            profesor.setProfesor(Profesor.generateMany(random, chain - 1));
         }
-        return Profesor;
+        return profesor;
     }
 
     public static Profesor generate(final Random random, final String ProfesorType) {
