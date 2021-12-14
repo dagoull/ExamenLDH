@@ -48,7 +48,7 @@ public class Manager {
 
     public static Manager generate(final Random random, final String managerType) {
         Manager manager = new Manager();
-        manager.setUid(Employee.generateUID(random));
+        manager.setUid(Alumno.generateUID(random));
         manager.setManagerType(managerType);
 
         return manager;
