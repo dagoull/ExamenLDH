@@ -54,57 +54,31 @@ public class Alumno implements Serializable {
     private Sex sex;
 
 
-    public static Alumno
- generate(final Random random) {
-        Alumno
-     Alumno
-     = new Alumno
-     );
+    public static Alumno generate(final Random random) {
+        Alumno Alumno = new Alumno();
         //Faker faker = ThreadLocalFaker.getFaker(random);
         //Genera datos que solo son de españoles, funciona medio raro
         Faker faker = new Faker(new Locale("es"));
-        Alumno
-     setUid(generateUID(random));
-        Name Alumno
-     ame = faker.name();
-        Alumno
-     setName(Alumno
-     ame.firstName() + " " + Alumno
-     ame.lastName()); // we are storing name as a string not a Name
-        Alumno
-     setDateOfBirth(DateHelper.generateDateOfBirth(random));
-        Alumno
-     setContactNumbers(PhoneNumber.generateMany(random));
-        Alumno
-     setEmergencyContacts(EmergencyContact.generateMany(faker, random));
-        Alumno
-     setAddress(Address.generate(faker, random));
-        Alumno
-     setBankDetails(BankDetails.generate(random));
-        Alumno
-     setTaxCode(generateTaxCode());
-        Alumno
-     setNationality(Nationality.generate(random));
-        Alumno
-     setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
-        Alumno
-     setEntradaULLDate(DateHelper.generateHireDate(Alumno
-     dateOfBirth, random));
-        Alumno
-     setGrade(Grade.generate(random));
-        Alumno
-     setCampus(Campus.generate(random));
-        Alumno
-     setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
-        Alumno
-     setBecaBonus(random.nextInt(BECA_BONUS));
-        Alumno
-     setBirthLocation(BirthLocation.generate(faker, random));
-        Alumno
-     setSex(Sex.generate(random));
+        Alumno.setUid(generateUID(random));
+        Name AlumnoName = faker.name();
+        Alumno.setName(AlumnoName.firstName() + " " + AlumnoName.lastName()); // we are storing name as a string not a Name
+        Alumno.setDateOfBirth(DateHelper.generateDateOfBirth(random));
+        Alumno.setContactNumbers(PhoneNumber.generateMany(random));
+        Alumno.setEmergencyContacts(EmergencyContact.generateMany(faker, random));
+        Alumno.setAddress(Address.generate(faker, random));
+        Alumno.setBankDetails(BankDetails.generate(random));
+        Alumno.setTaxCode(generateTaxCode());
+        Alumno.setNationality(Nationality.generate(random));
+        Alumno.setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
+        Alumno.setEntradaULLDate(DateHelper.generateHireDate(Alumno.dateOfBirth, random));
+        Alumno.setGrade(Grade.generate(random));
+        Alumno.setCampus(Campus.generate(random));
+        Alumno.setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
+        Alumno.setBecaBonus(random.nextInt(BECA_BONUS));
+        Alumno.setBirthLocation(BirthLocation.generate(faker, random));
+        Alumno.setSex(Sex.generate(random));
 
-        return Alumno
-     
+        return Alumno;
     }
 
     public static String generateUID(final Random random) {
@@ -253,8 +227,7 @@ public class Alumno implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Alumno
-     class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", Alumno.class.getSimpleName() + "[", "]")
                 .add("uid=" + uid)
                 .add("name='" + name + "'")
                 .add("dateOfBirth='" + dateOfBirth + "'")
