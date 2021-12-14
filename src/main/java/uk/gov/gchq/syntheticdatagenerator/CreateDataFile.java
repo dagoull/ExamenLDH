@@ -19,7 +19,7 @@ package uk.gov.gchq.syntheticdatagenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.gchq.syntheticdatagenerator.serialise.AvroSerialiser;
-import uk.gov.gchq.syntheticdatagenerator.types.Employee;
+import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
 import uk.gov.gchq.syntheticdatagenerator.types.Manager;
 import uk.gov.gchq.syntheticdatagenerator.types.UserId;
 
@@ -34,15 +34,15 @@ import java.util.stream.Stream;
 
 public final class CreateDataFile implements Callable<Boolean> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateDataFile.class);
-    // When a large number of employees are requested, print the progress as feedback that the process has not frozen
+    // When a large number of Alumnos are requested, print the progress as feedback that the process has not frozen
     private static final long PRINT_EVERY = 100_000L;
 
-    private final long numberOfEmployees;
+    private final long numberOfAlumnos;
     private final Random random;
     private final File outputFile;
 
-    public CreateDataFile(final long numberOfEmployees, final long seed, final File outputFile) {
-        this.numberOfEmployees = numberOfEmployees;
+    public CreateDataFile(final long numberOfAlumnos, final long seed, final File outputFile) {
+        this.numberOfAlumnos = numberOfAlumnos;
         this.random = new Random(seed);
         this.outputFile = outputFile;
     }
@@ -55,39 +55,39 @@ public final class CreateDataFile implements Callable<Boolean> {
             }
         }
         try (OutputStream out = new FileOutputStream(outputFile)) {
-            AvroSerialiser<Employee> employeeAvroSerialiser = new AvroSerialiser<>(Employee.class);
+            AvroSerialiser<Alumno> AlumnoAvroSerialiser = new AvroSerialiser<>(Alumno.class);
 
-            // Need at least one Employee
-            Employee firstEmployee = Employee.generate(random);
-            Manager[] managers = firstEmployee.getManager();
+            // Need at least one Alumno
+            Alumno firstAlumno = Alumno.generate(random);
+            Manager[] managers = firstAlumno.getManager();
             managers[0].setUid("Bob");
-            firstEmployee.setManager(managers);
+            firstAlumno.setManager(managers);
 
-            // Create more employees if needed
-            Stream<Employee> employeeStream = Stream.of(firstEmployee);
-            if (numberOfEmployees > 1) {
-                employeeStream = Stream.concat(employeeStream, generateStreamOfEmployees());
+            // Create more Alumnos if needed
+            Stream<Alumno> AlumnoStream = Stream.of(firstAlumno);
+            if (numberOfAlumnos > 1) {
+                AlumnoStream = Stream.concat(AlumnoStream, generateStreamOfAlumnos());
             }
 
             // Serialise stream to output
-            employeeAvroSerialiser.serialise(employeeStream, out);
+            AlumnoAvroSerialiser.serialise(AlumnoStream, out);
             return true;
         } catch (IOException ex) {
-            LOGGER.error("IOException when serialising Employee to Avro", ex);
+            LOGGER.error("IOException when serialising Alumno to Avro", ex);
             return false;
         }
     }
 
-    private Stream<Employee> generateStreamOfEmployees() {
-        LOGGER.info("Generating {} employees", numberOfEmployees);
+    private Stream<Alumno> generateStreamOfAlumnos() {
+        LOGGER.info("Generating {} Alumnos", numberOfAlumnos);
         final AtomicLong counter = new AtomicLong(0);
-        Stream<Employee> employeeStream = Stream.generate(() -> {
+        Stream<Alumno> AlumnoStream = Stream.generate(() -> {
             if (counter.incrementAndGet() % PRINT_EVERY == 0) {
-                LOGGER.info("Processing {} of {}", counter.get(), numberOfEmployees);
+                LOGGER.info("Processing {} of {}", counter.get(), numberOfAlumnos);
             }
-            return Employee.generate(random);
+            return Alumno.generate(random);
         });
-        // Excluding the one employee we had to generate above
-        return employeeStream.limit(numberOfEmployees - 1);
+        // Excluding the one Alumno we had to generate above
+        return AlumnoStream.limit(numberOfAlumnos - 1);
     }
 }
