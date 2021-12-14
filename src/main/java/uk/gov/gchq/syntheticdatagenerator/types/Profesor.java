@@ -24,8 +24,8 @@ import static java.util.Objects.requireNonNull;
 
 public class Profesor {
     private String uid;
-    private Profesor[] Profesors;
-    private String ProfesorType;
+    private Profesor[] profesors;
+    private String profesorType;
 
     public static Profesor[] generateMany(final Random random, final int chain) {
         return new Profesor[]{
@@ -36,8 +36,8 @@ public class Profesor {
     }
 
 
-    public static Profesor generateRecursive(final Random random, final int chain, final String ProfesorType) {
-        Profesor profesor = Profesor.generate(random, ProfesorType);
+    public static Profesor generateRecursive(final Random random, final int chain, final String profesorType) {
+        Profesor profesor = Profesor.generate(random, profesorType);
         if (chain <= 1) {
             profesor.setProfesor(null);
         } else {
@@ -46,10 +46,10 @@ public class Profesor {
         return profesor;
     }
 
-    public static Profesor generate(final Random random, final String ProfesorType) {
+    public static Profesor generate(final Random random, final String profesorType) {
         Profesor Profesor = new Profesor();
         Profesor.setUid(Alumno.generateUID(random));
-        Profesor.setProfesorType(ProfesorType);
+        Profesor.setProfesorType(profesorType);
 
         return Profesor;
     }
@@ -64,27 +64,27 @@ public class Profesor {
     }
 
     public String getProfesorType() {
-        return ProfesorType;
+        return profesorType;
     }
 
-    public void setProfesorType(final String ProfesorType) {
-        requireNonNull(ProfesorType);
-        this.ProfesorType = ProfesorType;
+    public void setProfesorType(final String profesorType) {
+        requireNonNull(profesorType);
+        this.profesorType = profesorType;
     }
 
     public Profesor[] getProfesor() {
-        if (null == Profesors) {
+        if (null == profesors) {
             return null;
         } else {
-            return Profesors.clone();
+            return profesors.clone();
         }
     }
 
     public void setProfesor(final Profesor[] Profesors) {
         if (null == Profesors) {
-            this.Profesors = null;
+            this.profesors = null;
         } else {
-            this.Profesors = Profesors.clone();
+            this.profesors = Profesors.clone();
         }
     }
 
@@ -92,8 +92,8 @@ public class Profesor {
     public String toString() {
         return new StringJoiner(", ", Profesor.class.getSimpleName() + "[", "]")
                 .add("uid=" + uid)
-                .add("Profesor=" + Arrays.toString(Profesors))
-                .add("ProfesorType='" + ProfesorType + "'")
+                .add("Profesor=" + Arrays.toString(profesors))
+                .add("ProfesorType='" + profesorType + "'")
                 .toString();
     }
 }
