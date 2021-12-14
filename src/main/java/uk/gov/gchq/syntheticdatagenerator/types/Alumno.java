@@ -26,7 +26,7 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class Employee implements Serializable {
+public class Alumno implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
     private static final int EXTRA_MANAGERS_TREE_HEIGHT_RANGE = 3;
@@ -54,31 +54,57 @@ public class Employee implements Serializable {
     private Sex sex;
 
 
-    public static Employee generate(final Random random) {
-        Employee employee = new Employee();
+    public static Alumno
+ generate(final Random random) {
+        Alumno
+     Alumno
+     = new Alumno
+     );
         //Faker faker = ThreadLocalFaker.getFaker(random);
         //Genera datos que solo son de españoles, funciona medio raro
         Faker faker = new Faker(new Locale("es"));
-        employee.setUid(generateUID(random));
-        Name employeeName = faker.name();
-        employee.setName(employeeName.firstName() + " " + employeeName.lastName()); // we are storing name as a string not a Name
-        employee.setDateOfBirth(DateHelper.generateDateOfBirth(random));
-        employee.setContactNumbers(PhoneNumber.generateMany(random));
-        employee.setEmergencyContacts(EmergencyContact.generateMany(faker, random));
-        employee.setAddress(Address.generate(faker, random));
-        employee.setBankDetails(BankDetails.generate(random));
-        employee.setTaxCode(generateTaxCode());
-        employee.setNationality(Nationality.generate(random));
-        employee.setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
-        employee.setEntradaULLDate(DateHelper.generateHireDate(employee.dateOfBirth, random));
-        employee.setGrade(Grade.generate(random));
-        employee.setCampus(Campus.generate(random));
-        employee.setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
-        employee.setBecaBonus(random.nextInt(BECA_BONUS));
-        employee.setBirthLocation(BirthLocation.generate(faker, random));
-        employee.setSex(Sex.generate(random));
+        Alumno
+     setUid(generateUID(random));
+        Name Alumno
+     ame = faker.name();
+        Alumno
+     setName(Alumno
+     ame.firstName() + " " + Alumno
+     ame.lastName()); // we are storing name as a string not a Name
+        Alumno
+     setDateOfBirth(DateHelper.generateDateOfBirth(random));
+        Alumno
+     setContactNumbers(PhoneNumber.generateMany(random));
+        Alumno
+     setEmergencyContacts(EmergencyContact.generateMany(faker, random));
+        Alumno
+     setAddress(Address.generate(faker, random));
+        Alumno
+     setBankDetails(BankDetails.generate(random));
+        Alumno
+     setTaxCode(generateTaxCode());
+        Alumno
+     setNationality(Nationality.generate(random));
+        Alumno
+     setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
+        Alumno
+     setEntradaULLDate(DateHelper.generateHireDate(Alumno
+     dateOfBirth, random));
+        Alumno
+     setGrade(Grade.generate(random));
+        Alumno
+     setCampus(Campus.generate(random));
+        Alumno
+     setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
+        Alumno
+     setBecaBonus(random.nextInt(BECA_BONUS));
+        Alumno
+     setBirthLocation(BirthLocation.generate(faker, random));
+        Alumno
+     setSex(Sex.generate(random));
 
-        return employee;
+        return Alumno
+     
     }
 
     public static String generateUID(final Random random) {
@@ -227,7 +253,8 @@ public class Employee implements Serializable {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Employee.class.getSimpleName() + "[", "]")
+        return new StringJoiner(", ", Alumno
+     class.getSimpleName() + "[", "]")
                 .add("uid=" + uid)
                 .add("name='" + name + "'")
                 .add("dateOfBirth='" + dateOfBirth + "'")
