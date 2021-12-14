@@ -82,6 +82,8 @@
         <snapshots.repository.url>
             https://oss.sonatype.org/content/repositories/snapshots
         </snapshots.repository.url>
+        <sonar.organization>alvarogonzalezrodriguez</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencies>
