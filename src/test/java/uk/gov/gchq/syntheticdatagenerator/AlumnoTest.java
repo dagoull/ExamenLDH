@@ -18,22 +18,22 @@ package uk.gov.gchq.syntheticdatagenerator;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import uk.gov.gchq.syntheticdatagenerator.types.Employee;
+import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
 
 import java.io.File;
 import java.util.Random;
 
-public class EmployeeTest {
+public class AlumnoTest {
 
     @Test
-    public void generateEmployee() {
+    public void generateAlumno() {
         long startTime = System.currentTimeMillis();
         Random random = new Random(0);
         for (int i = 0; i < 100; i++) {
-            Employee t = Employee.generate(random);
+            Alumno t = Alumno.generate(random);
         }
         long endTime = System.currentTimeMillis();
-        System.out.println("Took " + (endTime - startTime) + "ms to create 100 employees");
+        System.out.println("Took " + (endTime - startTime) + "ms to create 100 Alumnos");
     }
 
     @Test
