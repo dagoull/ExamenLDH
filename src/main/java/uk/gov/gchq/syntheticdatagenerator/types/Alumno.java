@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 public class Alumno implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
-    private static final int EXTRA_MANAGERS_TREE_HEIGHT_RANGE = 3;
+    private static final int EXTRA_ProfesorS_TREE_HEIGHT_RANGE = 3;
     private static final int MIN_MATRICULA = 900;
     private static final int EXTRA_MATRICULA_RANGE = 1_000;
     private static final int BECA_BONUS = 2_500;
@@ -44,7 +44,7 @@ public class Alumno implements Serializable {
     private BankDetails bankDetails;
     private String taxCode;
     private Nationality nationality;
-    private Manager[] manager;
+    private Profesor[] profesor;
     private String entradaULLDate;
     private Grade grade;
     private Campus campus;
@@ -69,7 +69,7 @@ public class Alumno implements Serializable {
         Alumno.setBankDetails(BankDetails.generate(random));
         Alumno.setTaxCode(generateTaxCode());
         Alumno.setNationality(Nationality.generate(random));
-        Alumno.setManager(Manager.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MANAGERS_TREE_HEIGHT_RANGE)));
+        Alumno.setProfesor(Profesor.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_ProfesorS_TREE_HEIGHT_RANGE)));
         Alumno.setEntradaULLDate(DateHelper.generateHireDate(Alumno.dateOfBirth, random));
         Alumno.setGrade(Grade.generate(random));
         Alumno.setCampus(Campus.generate(random));
@@ -161,12 +161,12 @@ public class Alumno implements Serializable {
         this.nationality = nationality;
     }
 
-    public Manager[] getManager() {
-        return manager;
+    public Profesor[] getProfesor() {
+        return profesor;
     }
 
-    public void setManager(final Manager[] manager) {
-        this.manager = manager;
+    public void setProfesor(final Profesor[] Profesor) {
+        this.profesor = Profesor;
     }
 
     public String getEntradaULLDate() {
@@ -237,7 +237,7 @@ public class Alumno implements Serializable {
                 .add("bankDetails=" + bankDetails)
                 .add("taxCode='" + taxCode + "'")
                 .add("nationality=" + nationality)
-                .add("manager=" + Arrays.toString(manager))
+                .add("Profesor=" + Arrays.toString(profesor))
                 .add("entradaULLDate='" + entradaULLDate + "'")
                 .add("grade=" + grade)
                 .add("campus=" + campus)
