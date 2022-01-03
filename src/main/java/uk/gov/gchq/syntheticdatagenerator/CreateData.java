@@ -32,7 +32,7 @@ public final class CreateData {
     // Varargs indices
     private static final int MINIMUM_ARGS = 3;
     private static final int OUT_PATH_ARG = 0;
-    private static final int NUM_EMPLOYEES_ARG = 1;
+    private static final int NUM_ALUMNOS_ARG = 1;
     private static final int NUM_FILES_ARG = 2;
     private static final int NUM_THREADS_ARG = 3;
 
@@ -41,11 +41,11 @@ public final class CreateData {
 
     public static void main(final String... args) {
         if (args.length < MINIMUM_ARGS) {
-            LOGGER.warn("This method needs at least three arguments. The directory path to save the files in, the number of employee's to generate and the number of files to split those employees between. An optional 4th argument is the number of threads to use which will default to 1.");
+            LOGGER.warn("This method needs at least three arguments. The directory path to save the files in, the number of alumnos's to generate and the number of files to split those alumnos between. An optional 4th argument is the number of threads to use which will default to 1.");
         } else {
             String outputFilePath = args[OUT_PATH_ARG];
             // Required minimal arguments
-            long numberOfEmployees = Long.parseLong(args[NUM_EMPLOYEES_ARG]);
+            long numberOfAlumnos = Long.parseLong(args[NUM_ALUMNOS_ARG]);
             int numberOfFiles = Integer.parseInt(args[NUM_FILES_ARG]);
             // Default values
             int numberOfThreads = numberOfFiles;
@@ -56,9 +56,9 @@ public final class CreateData {
             long startTime = System.currentTimeMillis();
             ExecutorService executors = Executors.newFixedThreadPool(numberOfThreads, createDaemonThreadFactory());
             CreateDataFile[] tasks = new CreateDataFile[numberOfFiles];
-            long employeesPerFile = numberOfEmployees / numberOfFiles;
+            long alumnosPerFile = numberOfAlumnos / numberOfFiles;
             for (int i = 0; i < numberOfFiles; i++) {
-                tasks[i] = new CreateDataFile(employeesPerFile, i, new File(outputFilePath + "/employee_file" + i + ".avro"));
+                tasks[i] = new CreateDataFile(alumnosPerFile, i, new File(outputFilePath + "/alumnos_file" + i + ".avro"));
             }
             try {
                 List<Future<Boolean>> responses = executors.invokeAll(Arrays.asList(tasks));
@@ -69,7 +69,7 @@ public final class CreateData {
                 LOGGER.error(e.getLocalizedMessage());
             }
             long endTime = System.currentTimeMillis();
-            LOGGER.info("Took {}ms to create {} employees", (endTime - startTime), numberOfEmployees);
+            LOGGER.info("Took {}ms to create {} alumnos", (endTime - startTime), numberOfAlumnos);
         }
     }
 
