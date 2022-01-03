@@ -30,18 +30,19 @@ import java.util.concurrent.ThreadFactory;
 public final class CreateData {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateData.class);
     // Varargs indices
-    private static final int MINIMUM_ARGS = 3;
+    private static final int MINIMUM_ARGS = 4;
     private static final int OUT_PATH_ARG = 0;
     private static final int NUM_ALUMNOS_ARG = 1;
-    private static final int NUM_FILES_ARG = 2;
-    private static final int NUM_THREADS_ARG = 3;
+    private static final int NUM_FILES_ARG = 3;
+    private static final int OPC_JSON = 2;
+    private static final int NUM_THREADS_ARG = 4;
 
     private CreateData() {
     }
 
     public static void main(final String... args) {
         if (args.length < MINIMUM_ARGS) {
-            LOGGER.warn("This method needs at least three arguments. The directory path to save the files in, the number of alumnos's to generate and the number of files to split those alumnos between. An optional 4th argument is the number of threads to use which will default to 1.");
+            LOGGER.warn("Este metodo necesita al menos 4 argumentos. La direccion del directorio para guardar los archivos, el numero de alumnos para generar, 0 para formato avro o 1 para json y el numero de archivos que se utilizaran para dividir la informacion. El cuarto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
         } else {
             String outputFilePath = args[OUT_PATH_ARG];
             // Required minimal arguments
@@ -49,6 +50,14 @@ public final class CreateData {
             int numberOfFiles = Integer.parseInt(args[NUM_FILES_ARG]);
             // Default values
             int numberOfThreads = numberOfFiles;
+            // avro o json
+            int opcion = Integer.parseInt(args[OPC_JSON]);
+            String extension;
+            if(opcion == 0) {
+                extension = ".avro";
+            } else {
+                extension = ".json";
+            }
             // Optional additional arguments overriding default values
             if (args.length > MINIMUM_ARGS) {
                 numberOfThreads = Integer.parseInt(args[NUM_THREADS_ARG]);
@@ -58,7 +67,7 @@ public final class CreateData {
             CreateDataFile[] tasks = new CreateDataFile[numberOfFiles];
             long alumnosPerFile = numberOfAlumnos / numberOfFiles;
             for (int i = 0; i < numberOfFiles; i++) {
-                tasks[i] = new CreateDataFile(alumnosPerFile, i, new File(outputFilePath + "/alumnos_file" + i + ".avro"));
+                tasks[i] = new CreateDataFile(alumnosPerFile, i, new File(outputFilePath + "/alumnos_file" + i + extension), extension);
             }
             try {
                 List<Future<Boolean>> responses = executors.invokeAll(Arrays.asList(tasks));

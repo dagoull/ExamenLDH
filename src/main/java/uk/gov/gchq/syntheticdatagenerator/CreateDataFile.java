@@ -19,6 +19,8 @@ package uk.gov.gchq.syntheticdatagenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.gov.gchq.syntheticdatagenerator.serialise.AvroSerialiser;
+import uk.gov.gchq.syntheticdatagenerator.serialise.JSONSerialiser;
+import uk.gov.gchq.syntheticdatagenerator.serialise.Serialiser;
 import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
 import uk.gov.gchq.syntheticdatagenerator.types.Profesor;
 import uk.gov.gchq.syntheticdatagenerator.types.UserId;
@@ -39,11 +41,13 @@ public final class CreateDataFile implements Callable<Boolean> {
     private final long numberOfAlumnos;
     private final Random random;
     private final File outputFile;
+    private final String extension;
 
-    public CreateDataFile(final long numberOfAlumnos, final long seed, final File outputFile) {
+    public CreateDataFile(final long numberOfAlumnos, final long seed, final File outputFile, final String extension) {
         this.numberOfAlumnos = numberOfAlumnos;
         this.random = new Random(seed);
         this.outputFile = outputFile;
+        this.extension = extension;
     }
 
     public Boolean call() {
@@ -54,7 +58,13 @@ public final class CreateDataFile implements Callable<Boolean> {
             }
         }
         try (OutputStream out = new FileOutputStream(outputFile)) {
-            AvroSerialiser<Alumno> AlumnoAvroSerialiser = new AvroSerialiser<>(Alumno.class);
+            Serialiser<Alumno> alumnoSerialiser = null;
+            if (extension.equals(".avro")) {
+                //AvroSerialiser<Alumno> AlumnoAvroSerialiser = new AvroSerialiser<>(Alumno.class);
+                alumnoSerialiser = new AvroSerialiser<>(Alumno.class);
+            } else if (extension.equals(".json")) {
+                alumnoSerialiser = new JSONSerialiser<>(Alumno.class);
+            }
 
             // Need at least one Alumno
             Alumno firstAlumno = Alumno.generate(random);
@@ -69,7 +79,8 @@ public final class CreateDataFile implements Callable<Boolean> {
             }
 
             // Serialise stream to output
-            AlumnoAvroSerialiser.serialise(AlumnoStream, out);
+            assert alumnoSerialiser != null;
+            alumnoSerialiser.serialise(AlumnoStream, out);
             return true;
         } catch (IOException ex) {
             LOGGER.error("IOException when serialising Alumno to Avro", ex);
