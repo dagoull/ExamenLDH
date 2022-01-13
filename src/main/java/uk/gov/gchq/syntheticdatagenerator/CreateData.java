@@ -76,6 +76,7 @@ public final class CreateData {
                 }
             } catch (final Exception e) {
                 LOGGER.error(e.getLocalizedMessage());
+                Thread.currentThread().interrupt();
             }
             long endTime = System.currentTimeMillis();
             LOGGER.info("Took {}ms to create {} alumnos", (endTime - startTime), numberOfAlumnos);
