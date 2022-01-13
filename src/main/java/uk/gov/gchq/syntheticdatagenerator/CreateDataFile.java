@@ -23,7 +23,6 @@ import uk.gov.gchq.syntheticdatagenerator.serialise.JSONSerialiser;
 import uk.gov.gchq.syntheticdatagenerator.serialise.Serialiser;
 import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
 import uk.gov.gchq.syntheticdatagenerator.types.Profesor;
-import uk.gov.gchq.syntheticdatagenerator.types.UserId;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,7 +59,6 @@ public final class CreateDataFile implements Callable<Boolean> {
         try (OutputStream out = new FileOutputStream(outputFile)) {
             Serialiser<Alumno> alumnoSerialiser = null;
             if (extension.equals(".avro")) {
-                //AvroSerialiser<Alumno> AlumnoAvroSerialiser = new AvroSerialiser<>(Alumno.class);
                 alumnoSerialiser = new AvroSerialiser<>(Alumno.class);
             } else if (extension.equals(".json")) {
                 alumnoSerialiser = new JSONSerialiser<>(Alumno.class);
@@ -68,19 +66,19 @@ public final class CreateDataFile implements Callable<Boolean> {
 
             // Need at least one Alumno
             Alumno firstAlumno = Alumno.generate(random);
-            Profesor[] Profesors = firstAlumno.getProfesor();
-            Profesors[0].setUid("Bob");
-            firstAlumno.setProfesor(Profesors);
+            Profesor[] profesors = firstAlumno.getProfesor();
+            profesors[0].setUid("Bob");
+            firstAlumno.setProfesor(profesors);
 
             // Create more Alumnos if needed
-            Stream<Alumno> AlumnoStream = Stream.of(firstAlumno);
+            Stream<Alumno> alumnoStream = Stream.of(firstAlumno);
             if (numberOfAlumnos > 1) {
-                AlumnoStream = Stream.concat(AlumnoStream, generateStreamOfAlumnos());
+                alumnoStream = Stream.concat(alumnoStream, generateStreamOfAlumnos());
             }
 
             // Serialise stream to output
             assert alumnoSerialiser != null;
-            alumnoSerialiser.serialise(AlumnoStream, out);
+            alumnoSerialiser.serialise(alumnoStream, out);
             return true;
         } catch (IOException ex) {
             LOGGER.error("IOException when serialising Alumno to Avro", ex);
@@ -91,13 +89,13 @@ public final class CreateDataFile implements Callable<Boolean> {
     private Stream<Alumno> generateStreamOfAlumnos() {
         LOGGER.info("Generating {} Alumnos", numberOfAlumnos);
         final AtomicLong counter = new AtomicLong(0);
-        Stream<Alumno> AlumnoStream = Stream.generate(() -> {
+        Stream<Alumno> alumnoStream = Stream.generate(() -> {
             if (counter.incrementAndGet() % PRINT_EVERY == 0) {
                 LOGGER.info("Processing {} of {}", counter.get(), numberOfAlumnos);
             }
             return Alumno.generate(random);
         });
         // Excluding the one Alumno we had to generate above
-        return AlumnoStream.limit(numberOfAlumnos - 1);
+        return alumnoStream.limit(numberOfAlumnos - 1);
     }
 }
