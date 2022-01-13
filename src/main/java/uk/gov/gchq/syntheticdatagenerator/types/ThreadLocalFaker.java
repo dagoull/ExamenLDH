@@ -40,4 +40,10 @@ public final class ThreadLocalFaker {
         }
         return faker.get();
     }
+
+    public void unload() {
+        faker.remove();
+        currentRandom.remove();
+    }
+
 }
