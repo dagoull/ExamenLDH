@@ -24,10 +24,6 @@ import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.reflect.ReflectData;
 import org.apache.avro.reflect.ReflectDatumReader;
 import org.apache.avro.reflect.ReflectDatumWriter;
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,10 +43,28 @@ import static java.util.Objects.requireNonNull;
  *
  * @param <O> the domain object type
  */
+
+class MyReflectDatumWriter<O> extends ReflectDatumWriter<O> implements Serialiser<O>{
+    public MyReflectDatumWriter(Schema schema) {
+        super(schema);
+    }
+
+    @Override
+    public void serialise(Stream<O> objects, OutputStream output) throws IOException {
+
+    }
+
+    @Override
+    public Stream<O> deserialise(InputStream stream) throws IOException {
+        return null;
+    }
+}
+
+
 public class AvroSerialiser<O> implements Serialiser<O> {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(AvroSerialiser.class);
-    private final ReflectDatumWriter<O> datumWriter;
+    private final MyReflectDatumWriter<O> datumWriter;
 
     private final Class<O> domainClass;
     private final Schema schema;
@@ -60,7 +74,7 @@ public class AvroSerialiser<O> implements Serialiser<O> {
         requireNonNull(domainClass, "domainClass is required");
         this.domainClass = domainClass;
         this.schema = ReflectData.AllowNull.get().getSchema(domainClass);
-        this.datumWriter = new ReflectDatumWriter<>(schema);
+        this.datumWriter = new MyReflectDatumWriter<>(schema);
     }
 
     @Override
