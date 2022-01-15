@@ -57,7 +57,7 @@ public final class CreateDataFile implements Callable<Boolean> {
                 LOGGER.warn("Failed to create parent directory {}", outputFile.getParent());
             }
         }
-        try (OutputStream out = new FileOutputStream(outputFile)) {
+        try (FileOutputStream out = new FileOutputStream(outputFile)) {
             Serialiser<Alumno> alumnoSerialiser = null;
             if (extension.equals(".avro")) {
                 alumnoSerialiser = new AvroSerialiser<>(Alumno.class);
