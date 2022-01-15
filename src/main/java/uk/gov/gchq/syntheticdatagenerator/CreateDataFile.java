@@ -27,7 +27,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Random;
+import java.nio.ByteBuffer;
+import java.security.SecureRandom;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
@@ -38,13 +39,13 @@ public final class CreateDataFile implements Callable<Boolean> {
     private static final long PRINT_EVERY = 100_000L;
 
     private final long numberOfAlumnos;
-    private final Random random;
+    private final SecureRandom random;
     private final File outputFile;
     private final String extension;
 
     public CreateDataFile(final long numberOfAlumnos, final long seed, final File outputFile, final String extension) {
         this.numberOfAlumnos = numberOfAlumnos;
-        this.random = new Random(seed);
+        this.random = new SecureRandom(longToBytes(seed));
         this.outputFile = outputFile;
         this.extension = extension;
     }
@@ -97,5 +98,11 @@ public final class CreateDataFile implements Callable<Boolean> {
         });
         // Excluding the one Alumno we had to generate above
         return alumnoStream.limit(numberOfAlumnos - 1);
+    }
+
+    private byte[] longToBytes(long x) {
+        ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
+        buffer.putLong(x);
+        return buffer.array();
     }
 }
