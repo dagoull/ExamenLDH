@@ -19,7 +19,6 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 import com.github.javafaker.Faker;
 
 import java.io.Serializable;
-import java.util.Random;
 import java.util.StringJoiner;
 
 public class Address implements Serializable {

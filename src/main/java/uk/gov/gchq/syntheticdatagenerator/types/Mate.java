@@ -75,7 +75,7 @@ public class Mate implements Serializable {
 
     public Mate[] getMate() {
         if (null == mates) {
-            return null;
+            return new Mate[0];
         } else {
             return mates.clone();
         }
