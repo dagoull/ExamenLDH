@@ -16,10 +16,11 @@
 
 package uk.gov.gchq.syntheticdatagenerator.types;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class PhoneNumber {
+public class PhoneNumber implements Serializable {
     private static final int MAX_EXTRA_CONTACTS = 3;
     private static final int PHONE_NUMBER_LENGTH = 10; // excluding leading zero
 

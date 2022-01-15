@@ -51,7 +51,7 @@ class MyReflectDatumWriter<O> extends ReflectDatumWriter<O> implements Serialise
 
     @Override
     public void serialise(Stream<O> objects, OutputStream output) throws IOException {
-
+        // Empty Function
     }
 
     @Override
@@ -106,7 +106,6 @@ public class AvroSerialiser<O> implements Serialiser<O> {
                 }
 
             } catch (Exception ex) {
-                LOGGER.error("Error occurred: {}", ex.getMessage());
                 throw new RuntimeException(ex);
             } finally {
                 try {

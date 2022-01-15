@@ -17,10 +17,11 @@
 package uk.gov.gchq.syntheticdatagenerator.types;
 
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class BankDetails {
+public class BankDetails implements Serializable {
     private static final int SORT_CODE_DIGITS = 6;
     private static final int ACCOUNT_NUMBER_DIGITS = 8;
     private String sortCode;

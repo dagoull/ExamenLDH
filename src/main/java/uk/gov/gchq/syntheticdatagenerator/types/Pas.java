@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 public class Pas implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
-    private static final int EXTRA_MateS_TREE_HEIGHT_RANGE = 3;
+    private static final int EXTRA_MATES_TREE_HEIGHT_RANGE = 3;
     private static final int MIN_EXPEDIENTE = 1248;
     private static final int EXTRA_EXPEDIENTE_RANGE = 1_000;
     private static final int PRODUCTIVIDAD_BONUS = 2_500;
@@ -55,30 +55,29 @@ public class Pas implements Serializable {
 
 
     public static Pas generate(final Random random) {
-        Pas Pas = new Pas();
-        //Faker faker = ThreadLocalFaker.getFaker(random);
+        Pas pas = new Pas();
         //Genera datos que solo son de españoles, funciona medio raro
         Faker faker = new Faker(new Locale("es"));
-        Pas.setUid(generateUID(random));
-        Name PasName = faker.name();
-        Pas.setName(PasName.firstName() + " " + PasName.lastName()); // we are storing name as a string not a Name
-        Pas.setDateOfBirth(DateHelper.generateDateOfBirth(random));
-        Pas.setContactNumbers(PhoneNumber.generateMany(random));
-        Pas.setEmergencyContacts(EmergencyContact.generateMany(faker, random));
-        Pas.setAddress(Address.generate(faker, random));
-        Pas.setBankDetails(BankDetails.generate(random));
-        Pas.setTaxCode(generateTaxCode());
-        Pas.setNationality(Nationality.generate(random));
-        Pas.setMate(Mate.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MateS_TREE_HEIGHT_RANGE)));
-        Pas.setEntradaULLDate(DateHelper.generateHireDate(Pas.dateOfBirth, random));
-        Pas.setGrade(Grade.generate(random));
-        Pas.setCampus(Campus.generate(random));
-        Pas.setExpedienteAmount(MIN_EXPEDIENTE + random.nextInt(EXTRA_EXPEDIENTE_RANGE));
-        Pas.setProductividadBonus(random.nextInt(PRODUCTIVIDAD_BONUS));
-        Pas.setBirthLocation(BirthLocation.generate(faker, random));
-        Pas.setSex(Sex.generate(random));
+        pas.setUid(generateUID(random));
+        Name pasName = faker.name();
+        pas.setName(pasName.firstName() + " " + pasName.lastName()); // we are storing name as a string not a Name
+        pas.setDateOfBirth(DateHelper.generateDateOfBirth(random));
+        pas.setContactNumbers(PhoneNumber.generateMany(random));
+        pas.setEmergencyContacts(EmergencyContact.generateMany(faker, random));
+        pas.setAddress(Address.generate(faker));
+        pas.setBankDetails(BankDetails.generate(random));
+        pas.setTaxCode(generateTaxCode());
+        pas.setNationality(Nationality.generate(random));
+        pas.setMate(Mate.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_MATES_TREE_HEIGHT_RANGE)));
+        pas.setEntradaULLDate(DateHelper.generateHireDate(pas.dateOfBirth, random));
+        pas.setGrade(Grade.generate(random));
+        pas.setCampus(Campus.generate(random));
+        pas.setExpedienteAmount(MIN_EXPEDIENTE + random.nextInt(EXTRA_EXPEDIENTE_RANGE));
+        pas.setProductividadBonus(random.nextInt(PRODUCTIVIDAD_BONUS));
+        pas.setBirthLocation(BirthLocation.generate(faker, random));
+        pas.setSex(Sex.generate(random));
 
-        return Pas;
+        return pas;
     }
 
     public static String generateUID(final Random random) {
@@ -165,8 +164,8 @@ public class Pas implements Serializable {
         return mate;
     }
 
-    public void setMate(final Mate[] Mate) {
-        this.mate = Mate;
+    public void setMate(final Mate[] mate) {
+        this.mate = mate;
     }
 
     public String getEntradaULLDate() {

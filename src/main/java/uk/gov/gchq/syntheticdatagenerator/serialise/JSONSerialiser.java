@@ -21,10 +21,8 @@ public class JSONSerialiser<O> implements Serialiser<O>{
 
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(JSONSerialiser.class);
-    //private final ReflectDatumWriter<O> datumWriter;
 
     private final Class<O> domainClass;
-    //private final Schema schema;
 
     public JSONSerialiser(@JsonProperty("domainClass") final Class<O> domainClass) {
         requireNonNull(domainClass, "domainClass is required");
@@ -53,7 +51,6 @@ public class JSONSerialiser<O> implements Serialiser<O>{
                 }
 
             } catch (Exception ex) {
-                LOGGER.error("Error occurred: {}", ex.getMessage());
                 throw new RuntimeException(ex);
             } finally {
                 try {

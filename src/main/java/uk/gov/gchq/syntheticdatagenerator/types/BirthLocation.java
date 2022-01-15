@@ -18,16 +18,17 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import com.github.javafaker.Faker;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class BirthLocation {
+public class BirthLocation implements Serializable {
     private BirthLocationName birthLocationName;
     private Address address;
 
     public static BirthLocation generate(final Faker faker, final Random random) {
         BirthLocation birthLocation = new BirthLocation();
-        birthLocation.setAddress(Address.generate(faker, random));
+        birthLocation.setAddress(Address.generate(faker));
         birthLocation.setBirthLocationName(BirthLocationName.generate(random));
         return birthLocation;
     }

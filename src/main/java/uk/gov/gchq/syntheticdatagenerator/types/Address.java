@@ -18,10 +18,11 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import com.github.javafaker.Faker;
 
+import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class Address {
+public class Address implements Serializable {
 
     private String streetAddressNumber;
     private String streetName;
@@ -29,7 +30,7 @@ public class Address {
     private String state;
     private String zipCode;
 
-    public static Address generate(final Faker faker, final Random random) {
+    public static Address generate(final Faker faker) {
         Address address = new Address();
         com.github.javafaker.Address fakeAddress = faker.address();
         address.setStreetAddressNumber(fakeAddress.streetAddressNumber());

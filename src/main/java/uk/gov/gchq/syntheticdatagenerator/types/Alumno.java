@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 public class Alumno implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
-    private static final int EXTRA_ProfesorS_TREE_HEIGHT_RANGE = 3;
+    private static final int EXTRA_PROFESORS_TREE_HEIGHT_RANGE = 3;
     private static final int MIN_MATRICULA = 900;
     private static final int EXTRA_MATRICULA_RANGE = 1_000;
     private static final int BECA_BONUS = 2_500;
@@ -55,30 +55,29 @@ public class Alumno implements Serializable {
 
 
     public static Alumno generate(final Random random) {
-        Alumno Alumno = new Alumno();
-        //Faker faker = ThreadLocalFaker.getFaker(random);
+        Alumno alumno = new Alumno();
         //Genera datos que solo son de españoles, funciona medio raro
         Faker faker = new Faker(new Locale("es"));
-        Alumno.setUid(generateUID(random));
-        Name AlumnoName = faker.name();
-        Alumno.setName(AlumnoName.firstName() + " " + AlumnoName.lastName()); // we are storing name as a string not a Name
-        Alumno.setDateOfBirth(DateHelper.generateDateOfBirth(random));
-        Alumno.setContactNumbers(PhoneNumber.generateMany(random));
-        Alumno.setEmergencyContacts(EmergencyContact.generateMany(faker, random));
-        Alumno.setAddress(Address.generate(faker, random));
-        Alumno.setBankDetails(BankDetails.generate(random));
-        Alumno.setTaxCode(generateTaxCode());
-        Alumno.setNationality(Nationality.generate(random));
-        Alumno.setProfesor(Profesor.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_ProfesorS_TREE_HEIGHT_RANGE)));
-        Alumno.setEntradaULLDate(DateHelper.generateHireDate(Alumno.dateOfBirth, random));
-        Alumno.setGrade(Grade.generate(random));
-        Alumno.setCampus(Campus.generate(random));
-        Alumno.setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
-        Alumno.setBecaBonus(random.nextInt(BECA_BONUS));
-        Alumno.setBirthLocation(BirthLocation.generate(faker, random));
-        Alumno.setSex(Sex.generate(random));
+        alumno.setUid(generateUID(random));
+        Name alumnoName = faker.name();
+        alumno.setName(alumnoName.firstName() + " " + alumnoName.lastName()); // we are storing name as a string not a Name
+        alumno.setDateOfBirth(DateHelper.generateDateOfBirth(random));
+        alumno.setContactNumbers(PhoneNumber.generateMany(random));
+        alumno.setEmergencyContacts(EmergencyContact.generateMany(faker, random));
+        alumno.setAddress(Address.generate(faker));
+        alumno.setBankDetails(BankDetails.generate(random));
+        alumno.setTaxCode(generateTaxCode());
+        alumno.setNationality(Nationality.generate(random));
+        alumno.setProfesor(Profesor.generateMany(random, MIN_MANGERS_TREE_HEIGHT + random.nextInt(EXTRA_PROFESORS_TREE_HEIGHT_RANGE)));
+        alumno.setEntradaULLDate(DateHelper.generateHireDate(alumno.dateOfBirth, random));
+        alumno.setGrade(Grade.generate(random));
+        alumno.setCampus(Campus.generate(random));
+        alumno.setMatriculaAmount(MIN_MATRICULA + random.nextInt(EXTRA_MATRICULA_RANGE));
+        alumno.setBecaBonus(random.nextInt(BECA_BONUS));
+        alumno.setBirthLocation(BirthLocation.generate(faker, random));
+        alumno.setSex(Sex.generate(random));
 
-        return Alumno;
+        return alumno;
     }
 
     public static String generateUID(final Random random) {
@@ -165,8 +164,8 @@ public class Alumno implements Serializable {
         return profesor;
     }
 
-    public void setProfesor(final Profesor[] Profesor) {
-        this.profesor = Profesor;
+    public void setProfesor(final Profesor[] profesor) {
+        this.profesor = profesor;
     }
 
     public String getEntradaULLDate() {

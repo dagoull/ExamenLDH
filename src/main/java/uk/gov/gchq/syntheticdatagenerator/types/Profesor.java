@@ -16,13 +16,14 @@
 
 package uk.gov.gchq.syntheticdatagenerator.types;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
-public class Profesor {
+public class Profesor implements Serializable {
     private String uid;
     private Profesor[] profesors;
     private String profesorType;
@@ -47,11 +48,11 @@ public class Profesor {
     }
 
     public static Profesor generate(final Random random, final String profesorType) {
-        Profesor Profesor = new Profesor();
-        Profesor.setUid(Alumno.generateUID(random));
-        Profesor.setProfesorType(profesorType);
+        Profesor profesor = new Profesor();
+        profesor.setUid(Alumno.generateUID(random));
+        profesor.setProfesorType(profesorType);
 
-        return Profesor;
+        return profesor;
     }
 
     public String getUid() {
@@ -74,17 +75,17 @@ public class Profesor {
 
     public Profesor[] getProfesor() {
         if (null == profesors) {
-            return null;
+            return new Profesor[0];
         } else {
             return profesors.clone();
         }
     }
 
-    public void setProfesor(final Profesor[] Profesors) {
-        if (null == Profesors) {
+    public void setProfesor(final Profesor[] profesors) {
+        if (null == profesors) {
             this.profesors = null;
         } else {
-            this.profesors = Profesors.clone();
+            this.profesors = profesors.clone();
         }
     }
 

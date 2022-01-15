@@ -19,15 +19,15 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 import java.util.Random;
 
 public enum Grade {
-    Grade1,
-    Grade2,
-    Grade3,
-    Grade4,
-    Grade5,
-    Grade6,
-    Grade7,
-    Grade8,
-    Grade9;
+    grade1,
+    grade2,
+    grade3,
+    grade4,
+    grade5,
+    grade6,
+    grade7,
+    grade8,
+    grade9;
 
     public static Grade generate(final Random random) {
         return Grade.values()[random.nextInt(Grade.values().length)];

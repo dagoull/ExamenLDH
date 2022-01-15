@@ -16,13 +16,14 @@
 
 package uk.gov.gchq.syntheticdatagenerator.types;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
-public class Mate {
+public class Mate implements Serializable {
     private String uid;
     private Mate[] mates;
     private String mateType;
@@ -47,11 +48,11 @@ public class Mate {
     }
 
     public static Mate generate(final Random random, final String mateType) {
-        Mate Mate = new Mate();
-        Mate.setUid(Pas.generateUID(random));
-        Mate.setmateType(mateType);
+        Mate mate = new Mate();
+        mate.setUid(Pas.generateUID(random));
+        mate.setmateType(mateType);
 
-        return Mate;
+        return mate;
     }
 
     public String getUid() {
@@ -80,11 +81,11 @@ public class Mate {
         }
     }
 
-    public void setMate(final Mate[] Mates) {
-        if (null == Mates) {
+    public void setMate(final Mate[] mates) {
+        if (null == mates) {
             this.mates = null;
         } else {
-            this.mates = Mates.clone();
+            this.mates = mates.clone();
         }
     }
 

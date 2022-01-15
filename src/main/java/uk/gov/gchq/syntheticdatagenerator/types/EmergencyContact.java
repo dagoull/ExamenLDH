@@ -19,11 +19,12 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.StringJoiner;
 
-public class EmergencyContact {
+public class EmergencyContact implements Serializable {
     private static final int MAX_EXTRA_CONTACTS = 4;
     private String contactName;
     private Relation relation;
