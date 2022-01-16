@@ -18,6 +18,9 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
+/**
+ * @brief Lista de todas las nacionalidades posibles a asignar
+ */
 public enum Nationality {
     AFGHAN,
     ALBANIAN,

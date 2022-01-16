@@ -21,6 +21,12 @@ import com.github.javafaker.Faker;
 import java.io.Serializable;
 import java.util.StringJoiner;
 
+/*****************************************************************************
+ * @class Address
+ * @brief Clase encargada generar datos aleatorios para una direccion de hogar
+ * @details Con javafaker se generaran datos de calles, ciudades, codigos postales, etc. aleatorios de todas partes de España
+ * @version 1.0
+ ****************************************************************************/
 public class Address implements Serializable {
 
     private String streetAddressNumber;

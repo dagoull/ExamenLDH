@@ -19,7 +19,7 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 import java.util.Random;
 
 /**
- * Taken from https://www.datadictionary.nhs.uk/data_dictionary/attributes/p/person/person_gender_code_de.asp
+ * Lista de generos que pueden ser asignados
  */
 public enum Sex {
     NOT_KNOWN,

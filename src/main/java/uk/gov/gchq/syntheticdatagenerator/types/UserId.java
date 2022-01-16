@@ -22,9 +22,11 @@ import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
-/**
- * A {@link UserId} uniquely identifies a User.
- */
+/*****************************************************************************
+ * @class UserID
+ * @brief Clase encargada de crear UID
+ * @version 1.0
+ ****************************************************************************/
 public class UserId implements Serializable {
     private static final long serialVersionUID = 1L;
 

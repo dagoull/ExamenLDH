@@ -24,12 +24,24 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.StringJoiner;
 
+/*****************************************************************************
+ * @class EmergencyContact
+ * @brief Clase encargada de crear una lista de contactos de emergencia de una persona
+ * @details Con javafaker se generara un nombre, relacion y nuemero de telefono de una persona y se le asignara como contacto de emergencia, puede tener un maximo de 4 contactos
+ * @version 1.0
+ ****************************************************************************/
 public class EmergencyContact implements Serializable {
     private static final int MAX_EXTRA_CONTACTS = 4;
     private String contactName;
     private Relation relation;
     private PhoneNumber[] contactNumbers;
 
+    /**
+     * @brief Metodo para iniciar la generacion de datos aleatorios
+     * @param faker Objeto que contiene los metodos para generar nombres, calles, numero de telefonos, ... aleatorios
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @return Los contactos de emergencia
+     */
     public static EmergencyContact generate(final Faker faker, final Random random) {
         EmergencyContact contact = new EmergencyContact();
         Name tempName = faker.name();
@@ -39,6 +51,12 @@ public class EmergencyContact implements Serializable {
         return contact;
     }
 
+    /**
+     * @brief Metodo para dar la posibilidad de generar contactos de emergencia extra
+     * @param faker Objeto que contiene los metodos para generar nombres, calles, numero de telefonos, ... aleatorios
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @return Los contactos de emergencia
+     */
     public static EmergencyContact[] generateMany(final Faker faker, final Random random) {
         int numberOfExtraContacts = random.nextInt(MAX_EXTRA_CONTACTS);
         EmergencyContact[] emergencyContacts = new EmergencyContact[numberOfExtraContacts + 1];

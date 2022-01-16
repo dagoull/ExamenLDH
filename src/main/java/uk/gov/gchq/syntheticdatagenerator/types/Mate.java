@@ -23,11 +23,23 @@ import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
 
+/*****************************************************************************
+ * @class Mate
+ * @brief Clase encargada de crear una lista de compañeros de trabajo
+ * @details Genera una lista de compañeros, los cuales a su vez tambien tienen compañeros, pueden tener tres titulos
+ * @version 1.0
+ ****************************************************************************/
 public class Mate implements Serializable {
     private String uid;
     private Mate[] mates;
     private String mateType;
 
+    /**
+     * @brief Genera los compañeros de los tres titulos que pueden tener asignados
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @param chain Profundidad que puede tener la generacion recursiva
+     * @return Lista de compañeros
+     */
     public static Mate[] generateMany(final Random random, final int chain) {
         return new Mate[]{
                 generateRecursive(random, chain, "Companiero Interino"),
@@ -36,7 +48,13 @@ public class Mate implements Serializable {
         };
     }
 
-
+    /**
+     * @brief Metodo que se encarga de controlar que la lista es lo suficientemente profunda
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @param chain Profundidad que puede tener la generacion recursiva
+     * @param mateType Titulo asignado al compañero
+     * @return Compañero
+     */
     public static Mate generateRecursive(final Random random, final int chain, final String mateType) {
         Mate mate = Mate.generate(random, mateType);
         if (chain <= 1) {
@@ -47,6 +65,12 @@ public class Mate implements Serializable {
         return mate;
     }
 
+    /**
+     * @brief Genera los datos aleatorios de los compañeros
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @param mateType Titulo asignado al compañero
+     * @return Compañero
+     */
     public static Mate generate(final Random random, final String mateType) {
         Mate mate = new Mate();
         mate.setUid(Pas.generateUID(random));

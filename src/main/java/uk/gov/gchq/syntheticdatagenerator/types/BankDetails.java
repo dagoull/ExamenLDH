@@ -20,7 +20,12 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
-
+/*****************************************************************************
+ * @class BankDetails
+ * @brief Clase encargada generar datos aleatorios para una cuenta bancaria
+ * @details Haciendo uso de un numero aleatorio se generaran una determinada cantidad de cadenas que haran referencia al numero del usuario
+ * @version 1.0
+ ****************************************************************************/
 public class BankDetails implements Serializable {
     private static final int SORT_CODE_DIGITS = 6;
     private static final int ACCOUNT_NUMBER_DIGITS = 8;

@@ -22,12 +22,23 @@ import java.util.Random;
 import java.util.StringJoiner;
 
 import static java.util.Objects.requireNonNull;
-
+/*****************************************************************************
+ * @class Profesor
+ * @brief Clase encargada de crear una lista de profesores
+ * @details Genera una lista de profesores, los cuales a su vez tambien tienen profesores, pueden tener tres titulos
+ * @version 1.0
+ ****************************************************************************/
 public class Profesor implements Serializable {
     private String uid;
     private Profesor[] profesors;
     private String profesorType;
 
+    /**
+     * @brief Genera los profesores de los tres titulos que pueden tener asignados
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @param chain Profundidad que puede tener la generacion recursiva
+     * @return Lista de profesores
+     */
     public static Profesor[] generateMany(final Random random, final int chain) {
         return new Profesor[]{
                 generateRecursive(random, chain, "Profesor Adjunto"),
@@ -36,7 +47,13 @@ public class Profesor implements Serializable {
         };
     }
 
-
+    /**
+     * @brief Metodo que se encarga de controlar que la lista es lo suficientemente profunda
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @param chain Profundidad que puede tener la generacion recursiva
+     * @param profesorType Titulo asignado al profesor
+     * @return Profesor
+     */
     public static Profesor generateRecursive(final Random random, final int chain, final String profesorType) {
         Profesor profesor = Profesor.generate(random, profesorType);
         if (chain <= 1) {
@@ -47,6 +64,12 @@ public class Profesor implements Serializable {
         return profesor;
     }
 
+    /**
+     * @brief Genera los datos aleatorios de los profesores
+     * @param random Numero aleatorio que creara datos aleatorios
+     * @param profesorType Titulo asignado al profesor
+     * @return Compañero
+     */
     public static Profesor generate(final Random random, final String profesorType) {
         Profesor profesor = new Profesor();
         profesor.setUid(Alumno.generateUID(random));

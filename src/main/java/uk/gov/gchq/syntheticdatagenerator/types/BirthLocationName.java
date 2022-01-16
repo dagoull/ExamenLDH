@@ -18,6 +18,9 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
+/**
+ * @brief Lista de varios hospitales de España
+ */
 public enum BirthLocationName {
     HOSPITAL_UNIVERSITARIO_LA_PAZ_10000,
     HOSPITAL_CLINIC_I_PROVINCIAL_DE_BARCELONA_8726,

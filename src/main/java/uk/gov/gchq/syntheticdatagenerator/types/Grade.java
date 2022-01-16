@@ -18,6 +18,9 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
+/**
+ * @brief Lista de grados
+ */
 public enum Grade {
     GRADE1,
     GRADE2,

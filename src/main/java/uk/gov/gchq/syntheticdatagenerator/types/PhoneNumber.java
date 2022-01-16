@@ -20,6 +20,12 @@ import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
 
+/*****************************************************************************
+ * @class PhoneNumber
+ * @brief Clase encargada de crear una lista de numeros de telefonos que puede tener asignada
+ * @details Por defecto va a tener asignado un numero de movil, hasta un maximo de tres tipos mas de contactos
+ * @version 1.0
+ ****************************************************************************/
 public class PhoneNumber implements Serializable {
     private static final int MAX_EXTRA_CONTACTS = 3;
     private static final int PHONE_NUMBER_LENGTH = 10; // excluding leading zero
@@ -29,6 +35,11 @@ public class PhoneNumber implements Serializable {
     private static final String[] DEFAULT_TYPES = new String[]{"Movil"};
     private static final String[] POSSIBLE_TYPES = new String[]{"Casa", "Trabajo", "Movil de trabajo"};
 
+    /**
+     * @brief Genera un numero aleatorio de telefono que se asignaran a la persona
+     * @param random Numero aleatorio que generara mas datos aleatorios
+     * @return Lista de numero de telefonos
+     */
     public static PhoneNumber[] generateMany(final Random random) {
         int numberOfExtraContacts = random.nextInt(MAX_EXTRA_CONTACTS);
         PhoneNumber[] phoneNumbers = new PhoneNumber[numberOfExtraContacts + 1];

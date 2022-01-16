@@ -18,6 +18,9 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
+/**
+ * @brief Lista de los distintos campus de la ULL
+ */
 public enum Campus {
     ESCUELA_DE_DOCTORADO_Y_ESTUDIOS_DE_POSGRADO,
     ESCUELA_POLITECNICA_SUPERIOR_DE_INGENIERIA,

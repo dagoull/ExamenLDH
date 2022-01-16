@@ -22,6 +22,12 @@ import java.io.Serializable;
 import java.util.Random;
 import java.util.StringJoiner;
 
+/*****************************************************************************
+ * @class BirthLocation
+ * @brief Clase encargada de crear un lugar aleatorio de nacimiento
+ * @details Con javafaker se generara una ciudad aleatorio de España que se usará como lugar de nacimiento de la persona
+ * @version 1.0
+ ****************************************************************************/
 public class BirthLocation implements Serializable {
     private BirthLocationName birthLocationName;
     private Address address;
@@ -33,12 +39,12 @@ public class BirthLocation implements Serializable {
         return birthLocation;
     }
 
-    public BirthLocationName getWorkLocationName() {
+    public BirthLocationName getBirthLocationName() {
         return birthLocationName;
     }
 
-    public void setBirthLocationName(final BirthLocationName workLocationName) {
-        this.birthLocationName = workLocationName;
+    public void setBirthLocationName(final BirthLocationName birthLocationName) {
+        this.birthLocationName = birthLocationName;
     }
 
     public Address getAddress() {

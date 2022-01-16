@@ -18,6 +18,9 @@ package uk.gov.gchq.syntheticdatagenerator.types;
 
 import java.util.Random;
 
+/**
+ * Lista de la relaciones que se pueden asignar
+ */
 public enum Relation {
     ABUELO,
     PADRE,
