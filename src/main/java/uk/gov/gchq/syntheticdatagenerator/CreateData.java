@@ -22,11 +22,18 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 
+/*****************************************************************************
+ * @class CreateData
+ * @brief Clase encargada de iniciar el programa
+ * @details Clase que segun parametros pasados por la linea de comandos inicializa varios hilos, crea distintos ficheros y organiza donde se crearan los datos sinteticos
+ * @version 1.0
+ ****************************************************************************/
 public final class CreateData {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateData.class);
     // Varargs indices
@@ -40,9 +47,13 @@ public final class CreateData {
     private CreateData() {
     }
 
+    /**
+     * @brief main del programa, dependiendo de los valores pasados por la linea de comandos creara datos para el PAS o para Alumnos en formato avro o JSON
+     * @param args Argumentos pasados por la linea de comandos, intrucciones de uso en README.md
+     */
     public static void main(final String... args) {
         if (args.length < MINIMUM_ARGS) {
-            LOGGER.warn("Este metodo necesita al menos 4 argumentos. La direccion del directorio para guardar los archivos, el numero de alumnos para generar, 0 para formato avro o 1 para json y el numero de archivos que se utilizaran para dividir la informacion. El cuarto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
+            LOGGER.warn("Este metodo necesita al menos 4 argumentos. La direccion del directorio para guardar los archivos, el numero de alumnos para generar, -avro para formato avro o -json para json y el numero de archivos que se utilizaran para dividir la informacion. El cuarto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
         } else {
             String outputFilePath = args[OUT_PATH_ARG];
             // Required minimal arguments
@@ -51,9 +62,9 @@ public final class CreateData {
             // Default values
             int numberOfThreads = numberOfFiles;
             // avro o json
-            int opcion = Integer.parseInt(args[OPC_JSON]);
+            String opcion = args[OPC_JSON];
             String extension;
-            if(opcion == 0) {
+            if(Objects.equals(opcion, "-avro")) {
                 extension = ".avro";
             } else {
                 extension = ".json";
@@ -84,8 +95,7 @@ public final class CreateData {
     }
 
     /**
-     * Create a {@link ThreadFactory} that creates daemon threads that don't prevent JVM exit.
-     *
+     * @brief Crea un {@link ThreadFactory} que crea hilos daemon que previenen que JVM cierre
      * @return a daemon thread factory
      */
     public static ThreadFactory createDaemonThreadFactory() {
