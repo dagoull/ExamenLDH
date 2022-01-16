@@ -33,6 +33,12 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
+/*****************************************************************************
+ * @class CreateDataFile
+ * @brief Clase encargada de crear el fichero de salida de los resultados
+ * @details Crea un fecho de salida avro o json gracias a los serialise implementados
+ * @version 1.0
+ ****************************************************************************/
 public final class CreateDataFile implements Callable<Boolean> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateDataFile.class);
     // When a large number of Alumnos are requested, print the progress as feedback that the process has not frozen
@@ -43,6 +49,13 @@ public final class CreateDataFile implements Callable<Boolean> {
     private final File outputFile;
     private final String extension;
 
+    /**
+     * @brief Constructor de la clase, asigna varios de los valores pasados por la linea de comandos y la semilla que generara los datos
+     * @param numberOfAlumnos Numero de alumnos a generar
+     * @param seed Semilla que se utilizara para generar los datos aleatorios
+     * @param outputFile Fichero de salida
+     * @param extension Extension del fichero de salida
+     */
     public CreateDataFile(final long numberOfAlumnos, final long seed, final File outputFile, final String extension) {
         this.numberOfAlumnos = numberOfAlumnos;
         this.random = new SecureRandom(longToBytes(seed));
@@ -50,6 +63,10 @@ public final class CreateDataFile implements Callable<Boolean> {
         this.extension = extension;
     }
 
+    /**
+     * @brief Llamada que se utiliza para crear el fichero de salida y generar los datos de la persona
+     * @return True si la operacion fue exitosa, false en caso contrario
+     */
     public Boolean call() {
         if (!outputFile.getParentFile().exists()) {
             boolean mkdirSuccess = outputFile.getParentFile().mkdirs();
@@ -87,6 +104,10 @@ public final class CreateDataFile implements Callable<Boolean> {
         }
     }
 
+    /**
+     * @brief Genera el numero de alumnos pedidos por la linea de comandos
+     * @return Devuelve todos los datos que se han generado en forma de Stream
+     */
     private Stream<Alumno> generateStreamOfAlumnos() {
         LOGGER.info("Generating {} Alumnos", numberOfAlumnos);
         final AtomicLong counter = new AtomicLong(0);
@@ -100,6 +121,11 @@ public final class CreateDataFile implements Callable<Boolean> {
         return alumnoStream.limit(numberOfAlumnos - 1);
     }
 
+    /**
+     * @brief Cambia un valor en long a bytes
+     * @param x Numero long
+     * @return El valor del long en bytes
+     */
     private byte[] longToBytes(long x) {
         ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES);
         buffer.putLong(x);
