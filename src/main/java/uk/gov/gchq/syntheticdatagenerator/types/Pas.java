@@ -29,7 +29,7 @@ import java.util.StringJoiner;
 /*****************************************************************************
  * @class Pas
  * @brief Clase encargada de generar los datos sinteticos del PAS de la ULL
- * @author alu0101202556
+ * @details Clase que segun unos parametros predeterminados y otros aleatorios genera datos sinteticos que simulan ser un trabajador del PAS de la ULL
  * @version 1.0
  ****************************************************************************/
 
