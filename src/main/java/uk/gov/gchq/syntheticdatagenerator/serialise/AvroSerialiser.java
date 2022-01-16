@@ -60,7 +60,12 @@ class MyReflectDatumWriter<O> extends ReflectDatumWriter<O> implements Serialise
     }
 }
 
-
+/*****************************************************************************
+ * @class AvroSerialiser
+ * @brief Clase encargada de pasar los datos en Stream a formato avro
+ * @details Haciendo uso de el serialiser de apache se transformara un stream de objetos a formato avro. Implementa a la interfaz Serialiser
+ * @version 1.0
+ ****************************************************************************/
 public class AvroSerialiser<O> implements Serialiser<O> {
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(AvroSerialiser.class);
@@ -69,6 +74,10 @@ public class AvroSerialiser<O> implements Serialiser<O> {
     private final Class<O> domainClass;
     private final Schema schema;
 
+    /**
+     * @brief Constructor de la clase, almacena valores necesarios para la serializacion en formato avro
+     * @param domainClass Dominio de la clase
+     */
     @JsonCreator
     public AvroSerialiser(@JsonProperty("domainClass") final Class<O> domainClass) {
         requireNonNull(domainClass, "domainClass is required");
@@ -77,6 +86,12 @@ public class AvroSerialiser<O> implements Serialiser<O> {
         this.datumWriter = new MyReflectDatumWriter<>(schema);
     }
 
+    /**
+     * @brief Cambia un stream de entrada en formato avro a un stream entendible
+     * @param input Stream de entrada
+     * @return Stream de salida
+     * @throws IOException Fallo en la deserializacion
+     */
     @Override
     public Stream<O> deserialise(final InputStream input) throws IOException {
         DataFileStream<O> in;
@@ -87,6 +102,12 @@ public class AvroSerialiser<O> implements Serialiser<O> {
         return StreamSupport.stream(in.spliterator(), false);
     }
 
+    /**
+     * @brief Metodo que sera usado para serializar en formato avro
+     * @param objects El stream de objetos que van a a ser serializados
+     * @param output  El stream de salida que se usara para escribir en formato json
+     * @throws IOException Fallo en la serializacion
+     */
     @Override
     public void serialise(final Stream<O> objects, final OutputStream output) throws IOException {
         requireNonNull(output, "output");

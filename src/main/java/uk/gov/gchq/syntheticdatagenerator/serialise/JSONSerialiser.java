@@ -17,6 +17,12 @@ import java.util.stream.Stream;
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 
+/*****************************************************************************
+ * @class JSONSerialiser
+ * @brief Clase encargada de pasar los datos en Stream a formato JSON
+ * @details Haciendo uso de el serialiser de jackson se transformara un stream de objetos a formato JSON. Implementa a la interfaz Serialiser
+ * @version 1.0
+ ****************************************************************************/
 public class JSONSerialiser<O> implements Serialiser<O>{
 
     private static final long serialVersionUID = 1L;
@@ -24,11 +30,21 @@ public class JSONSerialiser<O> implements Serialiser<O>{
 
     private final Class<O> domainClass;
 
+    /**
+     * @brief Constructor de la clase, almacena el dominio de la clase
+     * @param domainClass Dominio de la clase
+     */
     public JSONSerialiser(@JsonProperty("domainClass") final Class<O> domainClass) {
         requireNonNull(domainClass, "domainClass is required");
         this.domainClass = domainClass;
     }
 
+    /**
+     * @brief Metodo que sera usado para serializar en formato json
+     * @param objects El stream de objetos que van a a ser serializados
+     * @param output  El stream de salida que se usara para escribir en formato json
+     * @throws IOException Fallo en la serializacion
+     */
     @Override
     public void serialise(Stream<O> objects, OutputStream output) throws IOException {
         requireNonNull(output, "output");
