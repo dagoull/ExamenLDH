@@ -83,7 +83,7 @@ public final class CreateData {
             CreateDataFile[] tasks = new CreateDataFile[numberOfFiles];
             long personsPerFile = numberOfPersons / numberOfFiles;
             for (int i = 0; i < numberOfFiles; i++) {
-                tasks[i] = new CreateDataFile(personsPerFile, i, new File(outputFilePath + "/"+ personType +"_file" + i + extension), extension, personType);
+                tasks[i] = new CreateDataFile(personsPerFile, i, new File(outputFilePath + "/" + personType + "_file" + i + extension), extension, personType);
             }
             try {
                 List<Future<Boolean>> responses = executors.invokeAll(Arrays.asList(tasks));

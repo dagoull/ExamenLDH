@@ -43,6 +43,8 @@ public final class CreateDataFile implements Callable<Boolean> {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateDataFile.class);
     // When a large number of Alumnos are requested, print the progress as feedback that the process has not frozen
     private static final long PRINT_EVERY = 100_000L;
+    private static final String ALUMNO = "alumno";
+    private static final String PAS = "pas";
 
     private final long numberOfPersons;
     private final SecureRandom random;
@@ -62,7 +64,7 @@ public final class CreateDataFile implements Callable<Boolean> {
         this.random = new SecureRandom(longToBytes(seed));
         this.outputFile = outputFile;
         this.extension = extension;
-        this.type = (type.equals("alumno")) ? "alumno" : "pas";
+        this.type = type;
     }
 
     /**
@@ -86,24 +88,19 @@ public final class CreateDataFile implements Callable<Boolean> {
 
             // Need at least one Alumno or one Pas
             Stream<Person> personStream = null;
-            switch (type) {
-                case "alumno":
-                {
-                    Alumno firstPerson = Alumno.generate(random);
-                    Profesor[] profesors = firstPerson.getProfesor();
-                    profesors[0].setUid("Bob");
-                    firstPerson.setProfesor(profesors);
-                    personStream = Stream.of(firstPerson);
-                } break;
 
-                case "pas":
-                {
-                    Pas firstPerson = Pas.generate(random);
-                    Mate[] mates = firstPerson.getMate();
-                    mates[0].setUid("Bob");
-                    firstPerson.setMate(mates);
-                    personStream = Stream.of(firstPerson);
-                } break;
+            if (type.equals(ALUMNO)) {
+                Alumno firstPerson = Alumno.generate(random);
+                Profesor[] profesors = firstPerson.getProfesor();
+                profesors[0].setUid("Bob");
+                firstPerson.setProfesor(profesors);
+                personStream = Stream.of(firstPerson);
+            } else {
+                Pas firstPerson = Pas.generate(random);
+                Mate[] mates = firstPerson.getMate();
+                mates[0].setUid("Bob");
+                firstPerson.setMate(mates);
+                personStream = Stream.of(firstPerson);
             }
 
             // Create more Alumnos/Pas if needed
@@ -132,7 +129,7 @@ public final class CreateDataFile implements Callable<Boolean> {
             if (counter.incrementAndGet() % PRINT_EVERY == 0) {
                 LOGGER.info("Processing {} of {}", counter.get(), numberOfPersons);
             }
-            return type.equals("alumno") ? Alumno.generate(random) : Pas.generate(random);
+            return type.equals(ALUMNO) ? Alumno.generate(random) : Pas.generate(random);
         });
         // Excluding the one Alumno we had to generate above
         return personStream.limit(numberOfPersons - 1);
