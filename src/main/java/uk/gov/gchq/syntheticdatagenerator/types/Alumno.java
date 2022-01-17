@@ -32,7 +32,7 @@ import java.util.StringJoiner;
  * @details Clase que segun unos parametros predeterminados y otros aleatorios genera datos sinteticos que simulan ser un alumno de la ULL
  * @version 1.0
  ****************************************************************************/
-public class Alumno implements Serializable {
+public class Alumno implements Serializable, Person {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
     private static final int EXTRA_PROFESORS_TREE_HEIGHT_RANGE = 3;
@@ -58,6 +58,36 @@ public class Alumno implements Serializable {
     private int becaBonus;
     private BirthLocation birthLocation;
     private Sex sex;
+
+    /**
+     * @brief Constructor por defecto
+     */
+    public Alumno() {
+
+    }
+
+    /**
+     * @brief Constructor de copia
+     * @param alumno Objeto Alumno a copiar
+     */
+    public Alumno(Alumno alumno) {
+        this.setName(alumno.name);
+        this.setDateOfBirth(alumno.dateOfBirth);
+        this.setContactNumbers(alumno.contactNumbers);
+        this.setEmergencyContacts(alumno.emergencyContacts);
+        this.setAddress(alumno.address);
+        this.setBankDetails(alumno.bankDetails);
+        this.setTaxCode(alumno.taxCode);
+        this.setNationality(alumno.nationality);
+        this.setProfesor(alumno.profesor);
+        this.setEntradaULLDate(alumno.entradaULLDate);
+        this.setGrade(alumno.grade);
+        this.setCampus(alumno.campus);
+        this.setMatriculaAmount(alumno.matriculaAmount);
+        this.setBecaBonus(alumno.becaBonus);
+        this.setBirthLocation(alumno.birthLocation);
+        this.setSex(alumno.sex);
+    }
 
     /**
      * @brief Genera datos relacionados con un alumno

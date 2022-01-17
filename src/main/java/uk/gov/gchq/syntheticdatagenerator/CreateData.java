@@ -37,12 +37,13 @@ import java.util.concurrent.ThreadFactory;
 public final class CreateData {
     private static final Logger LOGGER = LoggerFactory.getLogger(CreateData.class);
     // Varargs indices
-    private static final int MINIMUM_ARGS = 4;
+    private static final int MINIMUM_ARGS = 5;
     private static final int OUT_PATH_ARG = 0;
     private static final int NUM_ALUMNOS_ARG = 1;
     private static final int NUM_FILES_ARG = 3;
     private static final int OPC_JSON = 2;
-    private static final int NUM_THREADS_ARG = 4;
+    private static final int NUM_THREADS_ARG = 5;
+    private static final int PERSON_TYPE = 4;
 
     private CreateData() {
     }
@@ -53,12 +54,16 @@ public final class CreateData {
      */
     public static void main(final String... args) {
         if (args.length < MINIMUM_ARGS) {
-            LOGGER.warn("Este metodo necesita al menos 4 argumentos. La direccion del directorio para guardar los archivos, el numero de alumnos para generar, -avro para formato avro o -json para json y el numero de archivos que se utilizaran para dividir la informacion. El cuarto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
+            LOGGER.warn("Este metodo necesita al menos 5 argumentos. La direccion del directorio para guardar los archivos, " +
+                    "el numero de alumnos para generar, -avro para formato avro o -json para json, el numero de archivos " +
+                    "que se utilizaran para dividir la informacion y el tipo de persona a generar (Pas / Alumno). " +
+                    "El quinto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
         } else {
             String outputFilePath = args[OUT_PATH_ARG];
             // Required minimal arguments
-            long numberOfAlumnos = Long.parseLong(args[NUM_ALUMNOS_ARG]);
+            long numberOfPersons = Long.parseLong(args[NUM_ALUMNOS_ARG]);
             int numberOfFiles = Integer.parseInt(args[NUM_FILES_ARG]);
+            String personType = args[PERSON_TYPE];
             // Default values
             int numberOfThreads = numberOfFiles;
             // avro o json
@@ -76,9 +81,9 @@ public final class CreateData {
             long startTime = System.currentTimeMillis();
             ExecutorService executors = Executors.newFixedThreadPool(numberOfThreads, createDaemonThreadFactory());
             CreateDataFile[] tasks = new CreateDataFile[numberOfFiles];
-            long alumnosPerFile = numberOfAlumnos / numberOfFiles;
+            long personsPerFile = numberOfPersons / numberOfFiles;
             for (int i = 0; i < numberOfFiles; i++) {
-                tasks[i] = new CreateDataFile(alumnosPerFile, i, new File(outputFilePath + "/alumnos_file" + i + extension), extension);
+                tasks[i] = new CreateDataFile(personsPerFile, i, new File(outputFilePath + "/"+ personType +"_file" + i + extension), extension, personType);
             }
             try {
                 List<Future<Boolean>> responses = executors.invokeAll(Arrays.asList(tasks));
@@ -90,7 +95,7 @@ public final class CreateData {
                 Thread.currentThread().interrupt();
             }
             long endTime = System.currentTimeMillis();
-            LOGGER.info("Took {}ms to create {} alumnos", (endTime - startTime), numberOfAlumnos);
+            LOGGER.info("Took {}ms to create {} persons" , (endTime - startTime), numberOfPersons);
         }
     }
 

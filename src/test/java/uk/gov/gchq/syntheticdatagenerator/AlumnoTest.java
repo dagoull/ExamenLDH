@@ -19,6 +19,7 @@ package uk.gov.gchq.syntheticdatagenerator;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
+import uk.gov.gchq.syntheticdatagenerator.types.Pas;
 
 import java.io.File;
 import java.util.Random;
@@ -37,9 +38,20 @@ public class AlumnoTest {
     }
 
     @Test
+    public void generatePas() {
+        long startTime = System.currentTimeMillis();
+        Random random = new Random(0);
+        for (int i = 0; i < 100; i++) {
+            Pas p = Pas.generate(random);
+        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Took " + (endTime - startTime) + "ms to create 100 Pas");
+    }
+
+    @Test
     public void generateAvroData() {
         try {
-            CreateData.main(new String[]{"data", "50", "-avro", "1"});
+            CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -48,7 +60,7 @@ public class AlumnoTest {
     @Test
     public void generateJSONData() {
         try {
-            CreateData.main(new String[]{"data", "50", "-json", "1"});
+            CreateData.main(new String[]{"data", "50", "-json", "1", "pas"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }

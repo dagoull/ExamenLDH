@@ -33,7 +33,7 @@ import java.util.StringJoiner;
  * @version 1.0
  ****************************************************************************/
 
-public class Pas implements Serializable {
+public class Pas implements Serializable,  Person {
     private static final long serialVersionUID = 1L;
     private static final int MIN_MANGERS_TREE_HEIGHT = 2;
     private static final int EXTRA_MATES_TREE_HEIGHT_RANGE = 3;

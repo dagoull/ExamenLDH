@@ -21,8 +21,8 @@ import org.slf4j.LoggerFactory;
 import uk.gov.gchq.syntheticdatagenerator.serialise.AvroSerialiser;
 import uk.gov.gchq.syntheticdatagenerator.serialise.JSONSerialiser;
 import uk.gov.gchq.syntheticdatagenerator.serialise.Serialiser;
-import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
-import uk.gov.gchq.syntheticdatagenerator.types.Profesor;
+import uk.gov.gchq.syntheticdatagenerator.types.*;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,23 +44,25 @@ public final class CreateDataFile implements Callable<Boolean> {
     // When a large number of Alumnos are requested, print the progress as feedback that the process has not frozen
     private static final long PRINT_EVERY = 100_000L;
 
-    private final long numberOfAlumnos;
+    private final long numberOfPersons;
     private final SecureRandom random;
     private final File outputFile;
     private final String extension;
+    private final String type;
 
     /**
      * @brief Constructor de la clase, asigna varios de los valores pasados por la linea de comandos y la semilla que generara los datos
-     * @param numberOfAlumnos Numero de alumnos a generar
+     * @param numberOfPersons Numero de alumnos a generar
      * @param seed Semilla que se utilizara para generar los datos aleatorios
      * @param outputFile Fichero de salida
      * @param extension Extension del fichero de salida
      */
-    public CreateDataFile(final long numberOfAlumnos, final long seed, final File outputFile, final String extension) {
-        this.numberOfAlumnos = numberOfAlumnos;
+    public CreateDataFile(final long numberOfPersons, final long seed, final File outputFile, final String extension, final String type) {
+        this.numberOfPersons = numberOfPersons;
         this.random = new SecureRandom(longToBytes(seed));
         this.outputFile = outputFile;
         this.extension = extension;
+        this.type = (type.equals("alumno")) ? "alumno" : "pas";
     }
 
     /**
@@ -75,28 +77,43 @@ public final class CreateDataFile implements Callable<Boolean> {
             }
         }
         try (OutputStream out = new FileOutputStream(outputFile)) {
-            Serialiser<Alumno> alumnoSerialiser = null;
+            Serialiser<Person> alumnoSerialiser = null;
             if (extension.equals(".avro")) {
-                alumnoSerialiser = new AvroSerialiser<>(Alumno.class);
+                alumnoSerialiser = new AvroSerialiser<>(Person.class);
             } else if (extension.equals(".json")) {
-                alumnoSerialiser = new JSONSerialiser<>(Alumno.class);
+                alumnoSerialiser = new JSONSerialiser<>(Person.class);
             }
 
-            // Need at least one Alumno
-            Alumno firstAlumno = Alumno.generate(random);
-            Profesor[] profesors = firstAlumno.getProfesor();
-            profesors[0].setUid("Bob");
-            firstAlumno.setProfesor(profesors);
+            // Need at least one Alumno or one Pas
+            Stream<Person> personStream = null;
+            switch (type) {
+                case "alumno":
+                {
+                    Alumno firstPerson = Alumno.generate(random);
+                    Profesor[] profesors = firstPerson.getProfesor();
+                    profesors[0].setUid("Bob");
+                    firstPerson.setProfesor(profesors);
+                    personStream = Stream.of(firstPerson);
+                } break;
 
-            // Create more Alumnos if needed
-            Stream<Alumno> alumnoStream = Stream.of(firstAlumno);
-            if (numberOfAlumnos > 1) {
-                alumnoStream = Stream.concat(alumnoStream, generateStreamOfAlumnos());
+                case "pas":
+                {
+                    Pas firstPerson = Pas.generate(random);
+                    Mate[] mates = firstPerson.getMate();
+                    mates[0].setUid("Bob");
+                    firstPerson.setMate(mates);
+                    personStream = Stream.of(firstPerson);
+                } break;
+            }
+
+            // Create more Alumnos/Pas if needed
+            if (numberOfPersons > 1) {
+                personStream = Stream.concat(personStream, generateStreamOfPersons());
             }
 
             // Serialise stream to output
             assert alumnoSerialiser != null;
-            alumnoSerialiser.serialise(alumnoStream, out);
+            alumnoSerialiser.serialise(personStream, out);
             return true;
         } catch (IOException ex) {
             LOGGER.error("IOException when serialising Alumno to Avro", ex);
@@ -108,17 +125,17 @@ public final class CreateDataFile implements Callable<Boolean> {
      * @brief Genera el numero de alumnos pedidos por la linea de comandos
      * @return Devuelve todos los datos que se han generado en forma de Stream
      */
-    private Stream<Alumno> generateStreamOfAlumnos() {
-        LOGGER.info("Generating {} Alumnos", numberOfAlumnos);
+    private Stream<Person> generateStreamOfPersons() {
+        LOGGER.info("Generating {} Persons", numberOfPersons);
         final AtomicLong counter = new AtomicLong(0);
-        Stream<Alumno> alumnoStream = Stream.generate(() -> {
+        Stream<Person> personStream = Stream.generate(() -> {
             if (counter.incrementAndGet() % PRINT_EVERY == 0) {
-                LOGGER.info("Processing {} of {}", counter.get(), numberOfAlumnos);
+                LOGGER.info("Processing {} of {}", counter.get(), numberOfPersons);
             }
-            return Alumno.generate(random);
+            return type.equals("alumno") ? Alumno.generate(random) : Pas.generate(random);
         });
         // Excluding the one Alumno we had to generate above
-        return alumnoStream.limit(numberOfAlumnos - 1);
+        return personStream.limit(numberOfPersons - 1);
     }
 
     /**
