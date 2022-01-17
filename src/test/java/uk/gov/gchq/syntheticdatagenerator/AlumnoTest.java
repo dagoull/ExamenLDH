@@ -60,7 +60,7 @@ public class AlumnoTest {
     @Test
     public void generateJSONData() {
         try {
-            CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"});
+            CreateData.main(new String[]{"data", "50", "-json", "1", "pas"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }

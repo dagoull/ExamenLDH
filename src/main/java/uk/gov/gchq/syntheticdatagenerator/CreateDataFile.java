@@ -44,7 +44,6 @@ public final class CreateDataFile implements Callable<Boolean> {
     // When a large number of Alumnos are requested, print the progress as feedback that the process has not frozen
     private static final long PRINT_EVERY = 100_000L;
     private static final String ALUMNO = "alumno";
-    private static final String PAS = "pas";
 
     private final long numberOfPersons;
     private final SecureRandom random;
