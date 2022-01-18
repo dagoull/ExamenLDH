@@ -56,7 +56,7 @@ public final class CreateData {
         if (args.length < MINIMUM_ARGS) {
             LOGGER.warn("Este metodo necesita al menos 5 argumentos. La direccion del directorio para guardar los archivos, " +
                     "el numero de alumnos para generar, -avro para formato avro o -json para json, el numero de archivos " +
-                    "que se utilizaran para dividir la informacion y el tipo de persona a generar (Pas / Alumno). " +
+                    "que se utilizaran para dividir la informacion y el tipo de persona a generar (pas / alumno). " +
                     "El quinto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
         } else {
             String outputFilePath = args[OUT_PATH_ARG];

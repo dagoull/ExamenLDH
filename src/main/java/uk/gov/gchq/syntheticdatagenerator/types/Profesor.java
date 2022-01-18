@@ -28,9 +28,9 @@ import static java.util.Objects.requireNonNull;
  * @details Genera una lista de profesores, los cuales a su vez tambien tienen profesores, pueden tener tres titulos
  * @version 1.0
  ****************************************************************************/
-public class Profesor implements Serializable {
+public class Profesor implements Serializable, Compa {
     private String uid;
-    private Profesor[] profesors;
+    private Compa[] profesors;
     private String profesorType;
 
     /**
@@ -57,9 +57,9 @@ public class Profesor implements Serializable {
     public static Profesor generateRecursive(final Random random, final int chain, final String profesorType) {
         Profesor profesor = Profesor.generate(random, profesorType);
         if (chain <= 1) {
-            profesor.setProfesor(null);
+            profesor.setCompa(null);
         } else {
-            profesor.setProfesor(Profesor.generateMany(random, chain - 1));
+            profesor.setCompa(Profesor.generateMany(random, chain - 1));
         }
         return profesor;
     }
@@ -73,7 +73,7 @@ public class Profesor implements Serializable {
     public static Profesor generate(final Random random, final String profesorType) {
         Profesor profesor = new Profesor();
         profesor.setUid(Alumno.generateUID(random));
-        profesor.setProfesorType(profesorType);
+        profesor.setCompaType(profesorType);
 
         return profesor;
     }
@@ -87,16 +87,16 @@ public class Profesor implements Serializable {
         this.uid = uid;
     }
 
-    public String getProfesorType() {
+    public String getCompaType() {
         return profesorType;
     }
 
-    public void setProfesorType(final String profesorType) {
+    public void setCompaType(final String profesorType) {
         requireNonNull(profesorType);
         this.profesorType = profesorType;
     }
 
-    public Profesor[] getProfesor() {
+    public Compa[] getCompa() {
         if (null == profesors) {
             return new Profesor[0];
         } else {
@@ -104,7 +104,7 @@ public class Profesor implements Serializable {
         }
     }
 
-    public void setProfesor(final Profesor[] profesors) {
+    public void setCompa(final Compa[] profesors) {
         if (null == profesors) {
             this.profesors = null;
         } else {

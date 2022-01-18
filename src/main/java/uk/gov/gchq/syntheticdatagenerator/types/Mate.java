@@ -29,9 +29,9 @@ import static java.util.Objects.requireNonNull;
  * @details Genera una lista de compañeros, los cuales a su vez tambien tienen compañeros, pueden tener tres titulos
  * @version 1.0
  ****************************************************************************/
-public class Mate implements Serializable {
+public class Mate implements Serializable, Compa {
     private String uid;
-    private Mate[] mates;
+    private Compa[] mates;
     private String mateType;
 
     /**
@@ -58,9 +58,9 @@ public class Mate implements Serializable {
     public static Mate generateRecursive(final Random random, final int chain, final String mateType) {
         Mate mate = Mate.generate(random, mateType);
         if (chain <= 1) {
-            mate.setMate(null);
+            mate.setCompa(null);
         } else {
-            mate.setMate(Mate.generateMany(random, chain - 1));
+            mate.setCompa(Mate.generateMany(random, chain - 1));
         }
         return mate;
     }
@@ -74,7 +74,7 @@ public class Mate implements Serializable {
     public static Mate generate(final Random random, final String mateType) {
         Mate mate = new Mate();
         mate.setUid(Pas.generateUID(random));
-        mate.setmateType(mateType);
+        mate.setCompaType(mateType);
 
         return mate;
     }
@@ -88,16 +88,16 @@ public class Mate implements Serializable {
         this.uid = uid;
     }
 
-    public String getmateType() {
+    public String getCompaType() {
         return mateType;
     }
 
-    public void setmateType(final String mateType) {
+    public void setCompaType(final String mateType) {
         requireNonNull(mateType);
         this.mateType = mateType;
     }
 
-    public Mate[] getMate() {
+    public Compa[] getCompa() {
         if (null == mates) {
             return new Mate[0];
         } else {
@@ -105,7 +105,7 @@ public class Mate implements Serializable {
         }
     }
 
-    public void setMate(final Mate[] mates) {
+    public void setCompa(final Compa[] mates) {
         if (null == mates) {
             this.mates = null;
         } else {

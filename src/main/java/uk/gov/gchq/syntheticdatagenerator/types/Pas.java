@@ -61,6 +61,32 @@ public class Pas implements Serializable,  Person {
     private Sex sex;
 
     /**
+     * @brief Constructor por defecto
+     */
+    public Pas() {
+
+    }
+
+    public Pas(Pas pas) {
+        this.setName(pas.name);
+        this.setDateOfBirth(pas.dateOfBirth);
+        this.setContactNumbers(pas.contactNumbers);
+        this.setEmergencyContacts(pas.emergencyContacts);
+        this.setAddress(pas.address);
+        this.setBankDetails(pas.bankDetails);
+        this.setTaxCode(pas.taxCode);
+        this.setNationality(pas.nationality);
+        this.setMate(pas.mate);
+        this.setEntradaULLDate(pas.entradaULLDate);
+        this.setGrade(pas.grade);
+        this.setCampus(pas.campus);
+        this.setExpedienteAmount(pas.expedienteAmount);
+        this.setProductividadBonus(pas.productividadBonus);
+        this.setBirthLocation(pas.birthLocation);
+        this.setSex(pas.sex);
+    }
+
+    /**
      * @brief Genera datos relacionados con el PAS
      * @param random Numero aleatorio que hara que los datos generados tambien sean aleatorios
      * @return Al individuo generado

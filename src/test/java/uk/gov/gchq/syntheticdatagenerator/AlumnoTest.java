@@ -49,9 +49,27 @@ public class AlumnoTest {
     }
 
     @Test
-    public void generateAvroData() {
+    public void generateAvroDataAlumno() {
         try {
             CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"});
+        } finally {
+            FileUtils.deleteQuietly(new File(".data"));
+        }
+    }
+
+    @Test
+    public void generateJSONDataAlumno() {
+        try {
+            CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"});
+        } finally {
+            FileUtils.deleteQuietly(new File(".data"));
+        }
+    }
+
+    @Test
+    public void generateAvroDataPAS() {
+        try {
+            CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
