@@ -26,6 +26,7 @@ import org.apache.avro.reflect.ReflectDatumReader;
 import org.apache.avro.reflect.ReflectDatumWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.gchq.syntheticdatagenerator.types.Person;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,7 +51,7 @@ class MyReflectDatumWriter<O> extends ReflectDatumWriter<O> implements Serialise
     }
 
     @Override
-    public void serialise(Stream<O> objects, OutputStream output) throws IOException {
+    public void serialise(Stream<Person> objects, OutputStream output) throws IOException {
         // Empty Function
     }
 
@@ -109,7 +110,7 @@ public class AvroSerialiser<O> implements Serialiser<O> {
      * @throws IOException Fallo en la serializacion
      */
     @Override
-    public void serialise(final Stream<O> objects, final OutputStream output) throws IOException {
+    public void serialise(final Stream<Person> objects, final OutputStream output) throws IOException {
         requireNonNull(output, "output");
         if (nonNull(objects)) {
             //create a data file writer around the output stream
@@ -119,7 +120,7 @@ public class AvroSerialiser<O> implements Serialiser<O> {
             try {
                 dataFileWriter.create(schema, output);
                 //iterate and append items -- we can't use forEach on the stream as the lambda can't throw an IOException
-                Iterator<O> objectIt = objects.iterator();
+                Iterator<O> objectIt = (Iterator<O>) objects.iterator();
 
                 while (objectIt.hasNext()) {
                     O next = objectIt.next();
