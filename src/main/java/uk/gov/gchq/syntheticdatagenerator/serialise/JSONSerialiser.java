@@ -7,6 +7,7 @@ import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.gchq.syntheticdatagenerator.types.Person;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,7 +47,7 @@ public class JSONSerialiser<O> implements Serialiser<O>{
      * @throws IOException Fallo en la serializacion
      */
     @Override
-    public void serialise(Stream<O> objects, OutputStream output) throws IOException {
+    public void serialise(Stream<Person> objects, OutputStream output) throws IOException {
         requireNonNull(output, "output");
         if (nonNull(objects)) {
             //create a data file writer around the output stream
@@ -59,7 +60,7 @@ public class JSONSerialiser<O> implements Serialiser<O>{
                 jGenerator.useDefaultPrettyPrinter();
                 jGenerator.writeStartArray();
                 //iterate and append items -- we can't use forEach on the stream as the lambda can't throw an IOException
-                Iterator<O> objectIt = objects.iterator();
+                Iterator<O> objectIt = (Iterator<O>) objects.iterator();
 
                 while (objectIt.hasNext()) {
                     O next = objectIt.next();

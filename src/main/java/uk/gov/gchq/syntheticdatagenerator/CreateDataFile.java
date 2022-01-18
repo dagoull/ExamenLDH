@@ -78,13 +78,6 @@ public final class CreateDataFile implements Callable<Boolean> {
             }
         }
         try (OutputStream out = new FileOutputStream(outputFile)) {
-            Serialiser<Person> alumnoSerialiser = null;
-            if (extension.equals(".avro")) {
-                alumnoSerialiser = new AvroSerialiser<>(Person.class);
-            } else if (extension.equals(".json")) {
-                alumnoSerialiser = new JSONSerialiser<>(Person.class);
-            }
-
             // Need at least one Alumno or one Pas
             Stream<Person> personStream = null;
 
@@ -108,8 +101,21 @@ public final class CreateDataFile implements Callable<Boolean> {
             }
 
             // Serialise stream to output
-            assert alumnoSerialiser != null;
-            alumnoSerialiser.serialise(personStream, out);
+            Serialiser<Person> personSerialiser;
+            if (extension.equals(".avro")) {
+                if (type.equals(ALUMNO)) {
+                    Serialiser<Alumno> alumnoSerialiser = null;
+                    alumnoSerialiser = new AvroSerialiser<>(Alumno.class);
+                    alumnoSerialiser.serialise(personStream, out);
+                } else {
+                    Serialiser<Pas> pasSerialiser = null;
+                    pasSerialiser = new AvroSerialiser<>(Pas.class);
+                    pasSerialiser.serialise(personStream, out);
+                }
+            } else if (extension.equals(".json")) {
+                personSerialiser = new JSONSerialiser<>(Person.class);
+                personSerialiser.serialise(personStream, out);
+            }
             return true;
         } catch (IOException ex) {
             LOGGER.error("IOException when serialising Alumno to Avro", ex);
