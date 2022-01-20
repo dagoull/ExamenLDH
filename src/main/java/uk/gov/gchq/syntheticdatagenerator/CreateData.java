@@ -52,12 +52,13 @@ public final class CreateData {
      * @brief main del programa, dependiendo de los valores pasados por la linea de comandos creara datos para el PAS o para Alumnos en formato avro o JSON
      * @param args Argumentos pasados por la linea de comandos, intrucciones de uso en README.md
      */
-    public static void main(final String... args) {
+    public static int main(final String... args) {
         if (args.length < MINIMUM_ARGS) {
             LOGGER.warn("Este metodo necesita al menos 5 argumentos. La direccion del directorio para guardar los archivos, " +
                     "el numero de alumnos para generar, -avro para formato avro o -json para json, el numero de archivos " +
                     "que se utilizaran para dividir la informacion y el tipo de persona a generar (pas / alumno). " +
                     "El quinto argumento es opcional y se trata del numero de hilos estando 1 por defecto.");
+            return 1;
         } else {
             String outputFilePath = args[OUT_PATH_ARG];
             // Required minimal arguments
@@ -97,6 +98,7 @@ public final class CreateData {
             long endTime = System.currentTimeMillis();
             LOGGER.info("Took {}ms to create {} persons" , (endTime - startTime), numberOfPersons);
         }
+        return 0;
     }
 
     /**

@@ -22,28 +22,39 @@ import uk.gov.gchq.syntheticdatagenerator.types.Alumno;
 import uk.gov.gchq.syntheticdatagenerator.types.Pas;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class AlumnoTest {
 
     @Test
     public void generateAlumno() {
+        ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+        int counter = 0;
         long startTime = System.currentTimeMillis();
         Random random = new Random(0);
         for (int i = 0; i < 100; i++) {
             Alumno t = Alumno.generate(random);
+            alumnos.add(t);
+            counter++;
         }
+        assert (alumnos.size() == counter);
         long endTime = System.currentTimeMillis();
         System.out.println("Took " + (endTime - startTime) + "ms to create 100 Alumnos");
     }
 
     @Test
     public void generatePas() {
+        ArrayList<Pas> miembros = new ArrayList<Pas>();
+        int counter = 0;
         long startTime = System.currentTimeMillis();
         Random random = new Random(0);
         for (int i = 0; i < 100; i++) {
             Pas p = Pas.generate(random);
+            miembros.add(p);
+            counter++;
         }
+        assert (miembros.size() == counter);
         long endTime = System.currentTimeMillis();
         System.out.println("Took " + (endTime - startTime) + "ms to create 100 Pas");
     }
@@ -51,7 +62,7 @@ public class AlumnoTest {
     @Test
     public void generateAvroDataAlumno() {
         try {
-            CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"});
+            assert (CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -60,7 +71,7 @@ public class AlumnoTest {
     @Test
     public void generateJSONDataAlumno() {
         try {
-            CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"});
+            assert (CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -69,7 +80,7 @@ public class AlumnoTest {
     @Test
     public void generateAvroDataPAS() {
         try {
-            CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"});
+            assert (CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -78,7 +89,7 @@ public class AlumnoTest {
     @Test
     public void generateJSONData() {
         try {
-            CreateData.main(new String[]{"data", "50", "-json", "1", "pas"});
+            assert (CreateData.main(new String[]{"data", "50", "-json", "1", "pas"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
