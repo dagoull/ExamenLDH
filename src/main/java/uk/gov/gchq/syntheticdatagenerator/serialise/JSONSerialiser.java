@@ -29,15 +29,12 @@ public class JSONSerialiser<O> implements Serialiser<O>{
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = LoggerFactory.getLogger(JSONSerialiser.class);
 
-    private final Class<O> domainClass;
-
     /**
      * @brief Constructor de la clase, almacena el dominio de la clase
      * @param domainClass Dominio de la clase
      */
     public JSONSerialiser(@JsonProperty("domainClass") final Class<O> domainClass) {
         requireNonNull(domainClass, "domainClass is required");
-        this.domainClass = domainClass;
     }
 
     /**
