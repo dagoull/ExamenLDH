@@ -27,7 +27,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.stream.Stream;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = As.EXISTING_PROPERTY, property = "class")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.EXISTING_PROPERTY, property = "class")
 /**
  * <b>IMPORTANT:</b> All instances of this interface must be thread safe. That is, they must support multiple threads performing
  * calling either {@link Serialiser#deserialise(InputStream)} or {@link Serialiser#serialise(Stream, OutputStream)} concurrently.
