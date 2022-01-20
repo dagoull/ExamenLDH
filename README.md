@@ -13,20 +13,62 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
- 
-# Synthetic Data Generator
 
-Ever found yourself scrambling around to find test data and then when you find some it isn't in the quantity that you need? 
-Or you can't generate the data multi threaded and so it takes too long to produce. 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
 
-Look no further, we have a data generator that fakes up some classic human resources data about employees. 
-We have also created the data structure to contain the types of complex data structures that can make 
-computation expensive or difficult to truly test your platform.
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=bugs)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=code_smells)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=coverage)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=duplicated_lines_density)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=ncloc)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=sqale_rating)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=alert_status)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=reliability_rating)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=security_rating)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
 
-This repo provides the code to generate as many Employee records as you want, split over as many Avro files as you desire. 
-You can also optionally define the number of parallel threads used to generate your data.
+# Generador de Datos Sintéticos
 
-An `Employee` objects contains the following fields:
+Se trata de un generador de datos sintéticos relacionados con los alumnos y el personal PAS de la ULL.
+
+Con este proyecto se pueden generar una gran cantidad de datos relacionadas con la temática que decida el usuario, dividiendo toda esta
+información en tantos ficheros Avro o JSON que el usuario quiera. Al igual que tener la posibilidad de definir el numero de hilos paralelos
+que se usarán para generer la información.
+
+Para la realización de las distintas tareas del proyecto se han utilizado Maven, Doxygen, SonarCloud y Jenkins
+
+## Instalación
+
+Para empezar clonamos el repositorio de github
+```bash
+git clone https://github.com/gchq/synthetic-data-generator.git
+```
+Luego instalamos las dependencias con Maven
+```bash
+mvn clean install
+```
+
+## Build
+
+Se ha compilado un fichero JAR para ejecutar el programa, por lo que para iniciar el generador utilizamos el siguiente comando
+```bash
+java -jar synthetic-data-generator.jar PATH NUM_GENERACION SALIDA FILES TYPE [THREADS]
+```
+Donde:
+- PATH es el camino relativo para el almacenamiento de los resultados
+- NUM_GENERACION es el número de datos a generar
+- SALIDA es el tipo de formato de salida, donde debe de ir "-avro" o "-json"
+- FILES es el número de ficheros a crear
+- THREADS (opcional) es el numero de hilos a ejecutar
+
+Por ejemplo, para generar 1,000,000 de alumnos en unos 15 ficheros en formato JSON, con 4 hilos y teniendo como salida de ficheros /data:
+```bash
+java -jar synthetic-data-generator.jar /data 1000000 -json 15 alumno 4
+```
+La ejecución se ha realizado con JDK 16, recomandamos su uso para la utilización de la aplicación
+
+## Estructura
+
+Un objeto `Alumno` contiene la siguiente información:
 ```
 class Employee {
     UserId uid;
@@ -38,45 +80,35 @@ class Employee {
     BankDetails bankDetails;
     String taxCode;
     Nationality nationality;
-    Manager[] manager;
-    String hireDate;
+    Profesor[] profesor;
+    String entradaULLDate;
     Grade grade;
-    Department department;
-    int salaryAmount;
-    int salaryBonus;
-    WorkLocation workLocation;
+    Campus campus;
+    int matriculaAmount;
+    int becaBonus;
+    BirthLocation birthLocation;
     Sex sex;
 }
 ```
-The manager field is an array of manager, which could potentially be nested several layers deep, in the generated example manager is nested 3-5 layers deep.
-
-To use the generator you will need to have installed (git, maven and JDK 11). 
-
-To get started first clone this repo locally.
-
-```bash
-git clone https://github.com/gchq/synthetic-data-generator.git
+Mientas que un objeto `Pas` contiene la siguiente información:
 ```
-
-Then cd into the synthetic-data-generator directory and build the codebase
-
-```bash
-mvn clean install
-```
-
-then to start the generator:
-
-```bash
-.createHRData.sh PATH EMPLOYEES FILES [THREADS]
-```
-where:
-- PATH is the relative path to generate the files
-- EMPLOYEES is the number of employee records to create
-- FILES is the number of files to spread them over
-- THREADS (optional) specifies the number of threads to use.
-
-For example to generate 1,000,000 employee records, spread over 15 files, running the program with 4 threads, and writing the output files to /data/employee:
-
-```bash
-.createHRData.sh data/employee 1000000 15 4
+class Employee {
+    UserId uid;
+    String name;
+    String dateOfBirth;
+    PhoneNumber[] contactNumbers;
+    EmergencyContact[] emergencyContacts;
+    Address address;
+    BankDetails bankDetails;
+    String taxCode;
+    Nationality nationality;
+    Mate[] mate;
+    String entradaULLDate;
+    Grade grade;
+    Campus campus;
+    int expedienteAmount;
+    int productividadBonus;
+    BirthLocation birthLocation;
+    Sex sex;
+}
 ```
