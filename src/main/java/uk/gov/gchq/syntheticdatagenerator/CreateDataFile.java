@@ -77,6 +77,7 @@ public final class CreateDataFile implements Callable<Boolean> {
                 LOGGER.warn("Failed to create parent directory {}", outputFile.getParent());
             }
         }
+
         try (OutputStream out = new FileOutputStream(outputFile)) {
             // Need at least one Alumno or one Pas
             Stream<Person> personStream = null;
