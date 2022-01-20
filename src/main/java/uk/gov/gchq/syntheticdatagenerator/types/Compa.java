@@ -1,6 +1,9 @@
 package uk.gov.gchq.syntheticdatagenerator.types;
 
-public interface Compa {
+
+import java.io.Serializable;
+
+public interface Compa extends Serializable {
     String getUid();
     void setUid(final String uid);
     String getCompaType();

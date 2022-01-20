@@ -62,7 +62,7 @@ public class AlumnoTest {
     @Test(expected = Test.None.class)
     public void generateAvroDataAlumno() {
         try {
-            CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"});
+            assert (CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -71,7 +71,7 @@ public class AlumnoTest {
     @Test(expected = Test.None.class)
     public void generateJSONDataAlumno() {
         try {
-            CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"});
+            assert (CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -80,7 +80,7 @@ public class AlumnoTest {
     @Test(expected = Test.None.class)
     public void generateAvroDataPAS() {
         try {
-            CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"});
+            assert (CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
@@ -89,7 +89,7 @@ public class AlumnoTest {
     @Test(expected = Test.None.class)
     public void generateJSONData() {
         try {
-            CreateData.main(new String[]{"data", "50", "-json", "1", "pas"});
+            assert (CreateData.main(new String[]{"data", "50", "-json", "1", "pas"}) == 0);
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
