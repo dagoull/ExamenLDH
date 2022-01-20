@@ -27,9 +27,9 @@ import java.util.Random;
 
 public class AlumnoTest {
 
-    @Test
+    @Test(expected = Test.None.class)
     public void generateAlumno() {
-        ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+        ArrayList<Alumno> alumnos = new ArrayList<>();
         int counter = 0;
         long startTime = System.currentTimeMillis();
         Random random = new Random(0);
@@ -43,9 +43,9 @@ public class AlumnoTest {
         System.out.println("Took " + (endTime - startTime) + "ms to create 100 Alumnos");
     }
 
-    @Test
+    @Test(expected = Test.None.class)
     public void generatePas() {
-        ArrayList<Pas> miembros = new ArrayList<Pas>();
+        ArrayList<Pas> miembros = new ArrayList<>();
         int counter = 0;
         long startTime = System.currentTimeMillis();
         Random random = new Random(0);
@@ -59,37 +59,37 @@ public class AlumnoTest {
         System.out.println("Took " + (endTime - startTime) + "ms to create 100 Pas");
     }
 
-    @Test
+    @Test(expected = Test.None.class)
     public void generateAvroDataAlumno() {
         try {
-            assert (CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"}) == 0);
+            CreateData.main(new String[]{"data", "50", "-avro", "1", "alumno"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
     }
 
-    @Test
+    @Test(expected = Test.None.class)
     public void generateJSONDataAlumno() {
         try {
-            assert (CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"}) == 0);
+            CreateData.main(new String[]{"data", "50", "-json", "1", "alumno"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
     }
 
-    @Test
+    @Test(expected = Test.None.class)
     public void generateAvroDataPAS() {
         try {
-            assert (CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"}) == 0);
+            CreateData.main(new String[]{"data", "50", "-avro", "1", "pas"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
     }
 
-    @Test
+    @Test(expected = Test.None.class)
     public void generateJSONData() {
         try {
-            assert (CreateData.main(new String[]{"data", "50", "-json", "1", "pas"}) == 0);
+            CreateData.main(new String[]{"data", "50", "-json", "1", "pas"});
         } finally {
             FileUtils.deleteQuietly(new File(".data"));
         }
