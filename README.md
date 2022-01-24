@@ -14,18 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=bugs)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=code_smells)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=coverage)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=duplicated_lines_density)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=ncloc)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=sqale_rating)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=alert_status)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=reliability_rating)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=AlvaroGonzalezRodriguez_ProyectoLDH&metric=security_rating)](https://sonarcloud.io/project/overview?id=AlvaroGonzalezRodriguez_ProyectoLDH)
-
 # Generador de Datos Sintéticos
 
 Se trata de un generador de datos sintéticos relacionados con los alumnos y el personal PAS de la ULL.
